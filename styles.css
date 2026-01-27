@@ -24,7 +24,7 @@ body{
 body::before{
   content:"";
   position: fixed;
-  left: 80px;
+  left: 20px;
   top: -140px;
   width: 860px;
   height: 2600px;
