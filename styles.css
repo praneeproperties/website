@@ -28,6 +28,8 @@ body::before{
   top: -120px;
   width: 860px;
   height: 1300px;
+  background-size: 860px 1300px;
+
 
   background-image: -webkit-image-set(
     url("./assets/bg-pmark.png") 1x,
