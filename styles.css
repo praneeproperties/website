@@ -29,7 +29,7 @@ body::before{
   top: -140px;        /* lift so fronds spill into top area */
   width: 860px;
   height: 1300px;
-  background: url("./assets/bg-pmark.png") no-repeat left top;
+  background: url("./assets/palm.svg") no-repeat left top;
   background-size: contain;
   opacity: 0.08;      /* subtle silhouette */
   pointer-events: none;
