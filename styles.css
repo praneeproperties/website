@@ -46,7 +46,7 @@ body::before{
   background-position: left top;
   background-size: 860px 1300px; /* must match width/height above */
 
-  opacity: 0.10;
+  opacity: 0.12;
   pointer-events: none;
   z-index: 0;
 }
@@ -63,7 +63,7 @@ body::before{
 @media (max-width: 900px){
   body::before{
     left: -100px;
-    opacity: 0.03;
+    opacity: 0.04;
   }
 }
 
