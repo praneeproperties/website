@@ -24,8 +24,8 @@ body{
 body::before{
   content:"";
   position: fixed;
-  left: -80px;
-  top: -40px;
+  left: -100px;
+  top: -100px;
   width: 860px;
   height: 2600px;
 
@@ -42,7 +42,7 @@ body::before{
   background-position: left top;
   background-size: 860px 2600px;
 
-  opacity: 0.07;
+  opacity: 0.08;
   pointer-events: none;
   z-index: 0;
 }
