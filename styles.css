@@ -17,60 +17,7 @@ body{
   color:var(--text);
   background:var(--bg);
   line-height:1.5;
-
-  position: relative; /* needed for layering */
 }
-
-body::before{
-  content:"";
-  position: fixed;
-  left: -120px;
-  top: -120px;
-  width: 860px;
-  height: 1300px;
-  background-size: 860px 1300px;
-
-
-  background-image: -webkit-image-set(
-    url("./assets/bg-pmark.png") 1x,
-    url("./assets/bg-pmark@2x.png") 2x,
-    url("./assets/bg-pmark@4x.png") 4x
-  );
-  background-image: image-set(
-    url("./assets/bg-pmark.png") 1x,
-    url("./assets/bg-pmark@2x.png") 2x,
-    url("./assets/bg-pmark@4x.png") 4x
-  );
-
-  background-repeat: no-repeat;
-  background-position: left top;
-  background-size: 860px 1300px;
-
-  opacity: 0.10; /* try 0.10 to preview */
-  pointer-events: none;
-  z-index: 0;
-}
-
-
-
-
-
-.site-header, main, .site-footer{
-  position: relative;
-  z-index: 1;
-}
-
-
-@media (max-width: 900px){
-  body::before{
-    left: -100px;
-    opacity: 0.03;
-  }
-}
-
-
-
-
 
 img{max-width:100%; height:auto; display:block}
 a{color:inherit}
@@ -361,47 +308,6 @@ textarea{resize:vertical; min-height:120px}
   white-space:nowrap;
   border:0;
 }
-
-
-
-.brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  text-decoration:none;
-}
-
-.brand-mark{
-  height:44px;          /* tweak 36–52px */
-  width:auto;
-  display:block;
-}
-
-.brand-text{
-  display:flex;
-  flex-direction:column;
-  line-height:1;
-}
-
-.brand-name{
-  font-weight:700;
-  letter-spacing:.12em;
-  font-size:14px;
-}
-
-.brand-sub{
-  margin-top:6px;
-  font-size:11px;
-  letter-spacing:.28em;
-  color: var(--muted);
-}
-
-
-
-
-
-
-
 
 @media (max-width: 900px){
   h1{font-size:36px}
