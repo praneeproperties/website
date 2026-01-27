@@ -25,9 +25,9 @@ body{
 body::before{
   content:"";
   position: fixed;
-  left: -180px;       /* push off-canvas so only part shows */
+  left: -160px;       /* push off-canvas so only part shows */
   top: -140px;        /* lift so fronds spill into top area */
-  width: 560px;
+  width: 860px;
   height: 1300px;
   background: url("./assets/palm.svg") no-repeat left top;
   background-size: contain;
