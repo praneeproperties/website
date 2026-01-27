@@ -46,7 +46,7 @@ body::before{
   background-position: left top;
   background-size: 860px 1300px; /* must match width/height above */
 
-  opacity: 0.08;
+  opacity: 0.10;
   pointer-events: none;
   z-index: 0;
 }
