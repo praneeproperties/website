@@ -31,21 +31,24 @@ body::before{
 
   background-image: -webkit-image-set(
     url("./assets/bg-pmark.png") 1x,
-    url("./assets/bg-pmark@2x.png") 2x
+    url("./assets/bg-pmark@2x.png") 2x,
+    url("./assets/bg-pmark@4x.png") 4x
   );
   background-image: image-set(
     url("./assets/bg-pmark.png") 1x,
-    url("./assets/bg-pmark@2x.png") 2x
+    url("./assets/bg-pmark@2x.png") 2x,
+    url("./assets/bg-pmark@4x.png") 4x
   );
 
   background-repeat: no-repeat;
   background-position: left top;
   background-size: 860px 1300px;
 
-  opacity: 0.08;
+  opacity: 0.08; /* temporarily try 0.10 to confirm you can see the fades */
   pointer-events: none;
   z-index: 0;
 }
+
 
 
 
