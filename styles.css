@@ -24,13 +24,13 @@ body{
 body::before{
   content:"";
   position: fixed;
-  left: -50px;
-  top: 80px;
+  left: -40px;
+  top: 40px;
   width: 860px;
   height: 1300px;
   background: url("./assets/bg-pmark.png") no-repeat left top;
   background-size: contain;
-  opacity: 0.04;
+  opacity: 0.06;
   pointer-events: none;
   z-index: 0;
 }
@@ -43,8 +43,8 @@ body::before{
 
 @media (max-width: 900px){
   body::before{
-    left: -120px;
-    opacity: 0.03;
+    left: -100px;
+    opacity: 0.02;
   }
 }
 
