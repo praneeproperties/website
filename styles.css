@@ -27,7 +27,7 @@ body::before{
   left: -120px;
   top: -120px;
   width: 860px;
-  height: 2300px;
+  height: 1300px;
 
   background-image: -webkit-image-set(
     url("./assets/bg-pmark.png") 1x,
@@ -40,7 +40,7 @@ body::before{
 
   background-repeat: no-repeat;
   background-position: left top;
-  background-size: 860px 2600px;
+  background-size: 860px 1300px;
 
   opacity: 0.08;
   pointer-events: none;
