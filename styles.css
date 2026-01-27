@@ -24,16 +24,17 @@ body{
 body::before{
   content:"";
   position: fixed;
-  left: 40px;
-  top: 40px;
+  left: 80px;
+  top: -140px;
   width: 860px;
-  height: 1400px;
+  height: 1300px;
   background: url("./assets/bg-pmark.png") no-repeat left top;
   background-size: contain;
-  opacity: 0.08;
+  opacity: 0.06;
   pointer-events: none;
   z-index: 0;
 }
+
 
 .site-header, main, .site-footer{
   position: relative;
