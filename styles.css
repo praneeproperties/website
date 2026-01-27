@@ -25,7 +25,7 @@ body{
 body::before{
   content:"";
   position: fixed;
-  left: -120px;       /* push off-canvas so only part shows */
+  left: -20px;       /* push off-canvas so only part shows */
   top: -140px;        /* lift so fronds spill into top area */
   width: 860px;
   height: 1300px;
