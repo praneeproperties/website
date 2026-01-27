@@ -24,16 +24,29 @@ body{
 body::before{
   content:"";
   position: fixed;
-  left: 20px;
-  top: -40px;
+  left: 80px;
+  top: -140px;
   width: 860px;
-  height: 1300px;
-  background: url("./assets/bg-pmark.png") no-repeat left top;
-  background-size: contain;
+  height: 2600px;
+
+  background-image: -webkit-image-set(
+    url("./assets/bg-pmark-long.png") 1x,
+    url("./assets/bg-pmark-long@2x.png") 2x
+  );
+  background-image: image-set(
+    url("./assets/bg-pmark-long.png") 1x,
+    url("./assets/bg-pmark-long@2x.png") 2x
+  );
+
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-size: 860px 2600px;
+
   opacity: 0.08;
   pointer-events: none;
   z-index: 0;
 }
+
 
 
 .site-header, main, .site-footer{
