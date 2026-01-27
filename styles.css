@@ -17,12 +17,8 @@ body{
   color:var(--text);
   background:var(--bg);
   line-height:1.5;
-}
 
-
-
-body{
-  position: relative; /* add this if not already present */
+  position: relative; /* needed for layering */
 }
 
 /* Palm sits behind everything */
@@ -33,7 +29,7 @@ body::before{
   top: -140px;        /* lift so fronds spill into top area */
   width: 560px;
   height: 1300px;
-  background: url("assets/palm.svg") no-repeat left top;
+  background: url("./assets/palm.svg") no-repeat left top;
   background-size: contain;
   opacity: 0.08;      /* subtle silhouette */
   pointer-events: none;
@@ -52,6 +48,7 @@ body::before{
     opacity: 0.06;
   }
 }
+
 
 
 img{max-width:100%; height:auto; display:block}
