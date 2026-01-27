@@ -362,6 +362,47 @@ textarea{resize:vertical; min-height:120px}
   border:0;
 }
 
+
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  text-decoration:none;
+}
+
+.brand-mark{
+  height:44px;          /* tweak 36–52px */
+  width:auto;
+  display:block;
+}
+
+.brand-text{
+  display:flex;
+  flex-direction:column;
+  line-height:1;
+}
+
+.brand-name{
+  font-weight:700;
+  letter-spacing:.12em;
+  font-size:14px;
+}
+
+.brand-sub{
+  margin-top:6px;
+  font-size:11px;
+  letter-spacing:.28em;
+  color: var(--muted);
+}
+
+
+
+
+
+
+
+
 @media (max-width: 900px){
   h1{font-size:36px}
   .hero-grid{grid-template-columns:1fr; gap:18px}
