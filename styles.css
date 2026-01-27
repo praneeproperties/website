@@ -22,7 +22,9 @@ body{
 }
 
 body::before{
-  left: 80px; /* push more right (try 40px / 80px / 120px) */
+  content:"";
+  position: fixed;
+  left: 80px;
   top: -140px;
   width: 860px;
   height: 1300px;
@@ -33,12 +35,19 @@ body::before{
   z-index: 0;
 }
 
+.site-header, main, .site-footer{
+  position: relative;
+  z-index: 1;
+}
+
+
 @media (max-width: 900px){
   body::before{
-    left: -120px; /* also push more right on mobile */
+    left: -120px;
     opacity: 0.06;
   }
 }
+
 
 
 
