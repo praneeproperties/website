@@ -25,11 +25,11 @@ body{
 body::before{
   content:"";
   position: fixed;
-  left: -160px;       /* push off-canvas so only part shows */
+  left: -120px;       /* push off-canvas so only part shows */
   top: -140px;        /* lift so fronds spill into top area */
   width: 860px;
   height: 1300px;
-  background: url("./assets/palm.svg") no-repeat left top;
+  background: url("./assets/pg-pmark.png") no-repeat left top;
   background-size: contain;
   opacity: 0.08;      /* subtle silhouette */
   pointer-events: none;
