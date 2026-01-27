@@ -25,8 +25,8 @@ body{
 body::before{
   content:"";
   position: fixed;
-  left: -20px;       /* push off-canvas so only part shows */
-  top: 240px;        /* lift so fronds spill into top area */
+  left: 20px;       /* push off-canvas so only part shows */
+  top: 440px;        /* lift so fronds spill into top area */
   width: 860px;
   height: 1300px;
   background: url("./assets/bg-pmark.png") no-repeat left top;
