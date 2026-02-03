@@ -47,7 +47,7 @@ body::before{
 /* PALMS aerial (swap-in) */
 body::after{
   opacity:0;
-  background: url("assets/bg-palms.JPG") center / cover no-repeat;
+  background: url("assets/bg-palms.svg") center / cover no-repeat;
 }
 
 /* Toggle class added by JS when you scroll down */
@@ -152,8 +152,8 @@ p{margin:0 0 10px}
   outline-offset:2px;
 }
 
-.section{padding:64px 0; background: rgba(255,255,255,.82); backdrop-filter: blur(2px);}
-.section.soft{background: rgba(241,239,237,.86); backdrop-filter: blur(2px);}
+.section{padding:64px 0; background: transparent;}
+.section.soft{background: transparent;}
 
 .hero{
   padding:0;
@@ -245,10 +245,7 @@ p{margin:0 0 10px}
 }
 .tile p{margin:0; color:var(--muted)}
 
-.testimonials{
-  background: rgba(42,47,58,.92);
-  color:#ffffff;
-}
+.testimonials{background: transparent; color: #ffffff;}
 .testimonials h2{color:#ffffff}
 .quote-grid{
   max-width: 900px;
@@ -364,4 +361,32 @@ html.js .reveal.is-visible{
     transform: none !important;
     opacity: 1 !important;
   }
+}
+
+
+/* ===== Center content panels (solid background in the middle; sides show fixed BG) ===== */
+.center-panel{
+  background:#ffffff;
+  border:1px solid rgba(0,0,0,.10);
+  padding:56px 48px;
+  max-width: 820px;
+  margin:0 auto;
+}
+
+.center-panel.soft{
+  background: var(--soft);
+}
+
+.center-panel.dark{
+  background: rgba(42,47,58,.92);
+  border-color: rgba(255,255,255,.16);
+}
+
+.center-panel.dark .kicker,
+.center-panel.dark .muted{ color: rgba(255,255,255,.72); }
+
+.center-panel.dark h2{ color:#ffffff; }
+
+@media (max-width: 920px){
+  .center-panel{ padding:40px 22px; }
 }
