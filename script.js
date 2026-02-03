@@ -74,6 +74,32 @@ document.documentElement.classList.add("js");
   }
 
 
+
+  // Active nav on scroll (simple)
+  const navLinks = Array.from(document.querySelectorAll('#site-nav a'));
+  const sectionsForNav = navLinks
+    .map(a => document.querySelector(a.getAttribute('href')))
+    .filter(Boolean);
+
+  const setActive = () => {
+    const mid = window.innerHeight * 0.35;
+    let best = null;
+    let bestDist = Infinity;
+    for (const sec of sectionsForNav) {
+      const r = sec.getBoundingClientRect();
+      if (r.bottom <= 0 || r.top >= window.innerHeight) continue;
+      const d = Math.abs(r.top - mid);
+      if (d < bestDist) { bestDist = d; best = sec; }
+    }
+    if (!best) return;
+    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + best.id));
+  };
+
+  setActive();
+  window.addEventListener('scroll', setActive, { passive: true });
+  window.addEventListener('resize', setActive);
+
+
   // Scroll reveal init
   const revealEls = Array.from(document.querySelectorAll(".reveal"));
   if (revealEls.length) {
