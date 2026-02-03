@@ -19,23 +19,20 @@ body{
   line-height:1.5;
 }
 
-/* ===== Fixed background layers (Sky → Palms) ===== */
-body{
-  position:relative;
-}
-body::before,
-body::after{
-  content:"";
-  position:fixed;
-  inset:0;
-  z-index:-2;
-  pointer-events:none;
-  transition: opacity 700ms ease;
+
+
+/* ===== Multi-step fixed backgrounds (fade between 1..5) ===== */
+.bg-layer{
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 900ms ease;
 }
 
-/* SKY gradient (default) */
-body::before{
-  opacity:1;
+.bg-01{
+  /* sky blue ombre */
   background: linear-gradient(90deg,
     #7fb8ee 0%,
     #bfe0fb 28%,
@@ -44,16 +41,35 @@ body::before{
     #ffffff 100%);
 }
 
-/* PALMS aerial (swap-in) */
-body::after{
-  opacity:0;
-  background: url("assets/bg-palms.JPG") center / cover no-repeat;
+.bg-02{ background: #1f8b3c; }  /* test green */
+.bg-03{ background: #f08a2b; }  /* test orange */
+.bg-04{ background: #7a4a2a; }  /* test brown */
+.bg-05{ background: #6a3bbd; }  /* test purple */
+
+/* Which layer is active */
+body[data-bg="1"] .bg-01,
+body[data-bg="2"] .bg-02,
+body[data-bg="3"] .bg-03,
+body[data-bg="4"] .bg-04,
+body[data-bg="5"] .bg-05{
+  opacity: 1;
 }
 
-/* Toggle class added by JS when you scroll down */
-body.bg-palms::before{ opacity:0; }
-body.bg-palms::after{ opacity:1; }
+/* optional subtle vignette above everything */
+.bg-vignette{
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(1200px 900px at 50% 10%,
+    rgba(255,255,255,.22) 0%,
+    rgba(255,255,255,0) 55%),
+    rgba(0,0,0,.06);
+}
 
+/* Make sure hero stays transparent so fixed BG shows */
+.hero{ background-color: transparent; }
+/* (disabled) previous fixed background layers */
 /* Optional: a faint veil so text stays readable */
 .bg-veil{
   background: rgba(255,255,255,.82);

@@ -11,8 +11,16 @@
   <script>document.documentElement.classList.add('js');</script>
 </head>
 
-<body class="bg-sky">
-  <a class="skip-link" href="#main">Skip to content</a>
+<body class="bg-sky" data-bg="1">
+  
+  <!-- Fixed background layers (fade between them as you scroll) -->
+  <div class="bg-layer bg-01" aria-hidden="true"></div>
+  <div class="bg-layer bg-02" aria-hidden="true"></div>
+  <div class="bg-layer bg-03" aria-hidden="true"></div>
+  <div class="bg-layer bg-04" aria-hidden="true"></div>
+  <div class="bg-layer bg-05" aria-hidden="true"></div>
+  <div class="bg-vignette" aria-hidden="true"></div>
+<a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header" data-header>
     <div class="container header-inner">
@@ -37,7 +45,7 @@
 
   <main id="main">
     <!-- HERO -->
-    <section id="home" class="hero" aria-label="Hero">
+    <section id="home" class="hero" aria-label="Hero" data-bg-step="1">
       <div class="container hero-inner">
         <div class="hero-copy reveal reveal-up">
           <h1>Luxury Villa<br>Minutes<br>From the Bay</h1>
@@ -51,7 +59,7 @@
     </section>
 
     <!-- PROPERTIES FOR SALE (center column, alternating layout) -->
-    <section id="sales" class="section soft">
+    <section id="sales" class="section soft" data-bg-step="2">
       <div class="container">
         <div class="sales-wrap center-panel soft">
           <h2>Properties for Sale</h2>
@@ -97,7 +105,7 @@
     </section>
 
     <!-- LATEST RENTAL PROPERTIES -->
-    <section id="rentals" class="section" data-bg-swap="palms">
+    <section id="rentals" class="section" data-bg-step="3">
       <div class="container">
         <div class="rent-grid center-panel">
           <h2>Latest Rental Properties</h2>
@@ -148,7 +156,7 @@
     </section>
 
     <!-- BADGES / VALUE -->
-    <section id="agents" class="section">
+    <section id="agents" class="section" data-bg-step="4">
       <div class="container">
         <div class="badges center-panel">
           <div class="badge-grid">
@@ -176,7 +184,7 @@
     </section>
 
     <!-- TESTIMONIALS -->
-    <section class="section testimonials" aria-label="Testimonials">
+    <section class="section testimonials" aria-label="Testimonials" data-bg-step="5">
       <div class="container">
         <div class="center-panel dark">
           <h2>What Our Clients Think</h2>
@@ -200,7 +208,7 @@
     </section>
 
     <!-- CONTACT -->
-    <section id="contact" class="section">
+    <section id="contact" class="section" data-bg-step="5">
       <div class="container">
         <div class="contact-wrap center-panel">
           <h2>Contact</h2>

@@ -39,35 +39,38 @@ document.documentElement.classList.add("js");
 
 
 
-  // Background swap (Sky -> Palms) when rentals section enters viewport
-  const swapTarget = document.querySelector('[data-bg-swap="palms"]');
-  const body = document.body;
 
-  function setBg(mode) {
-    // mode: "sky" | "palms"
-    if (!body) return;
-    body.classList.toggle("bg-palms", mode === "palms");
-  }
+  // Multi background steps (fade between 1..5)
+  const bgSteps = Array.from(document.querySelectorAll("[data-bg-step]"));
+  const bodyEl = document.body;
 
-  if (swapTarget && "IntersectionObserver" in window) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) setBg("palms");
-        else {
-          // If we've scrolled back above the rentals section, return to sky
-          const rect = swapTarget.getBoundingClientRect();
-          if (rect.top > window.innerHeight * 0.25) setBg("sky");
+  const setBgStep = (step) => {
+    if (!bodyEl) return;
+    const v = String(step || 1);
+    if (bodyEl.getAttribute("data-bg") !== v) bodyEl.setAttribute("data-bg", v);
+  };
+
+  if (bgSteps.length) {
+    // Pick the section closest to the middle of the screen
+    const pickClosest = () => {
+      const mid = window.innerHeight * 0.45;
+      let best = null;
+      let bestDist = Infinity;
+
+      for (const el of bgSteps) {
+        const rect = el.getBoundingClientRect();
+        const dist = Math.abs(rect.top - mid);
+        if (rect.bottom > 0 && rect.top < window.innerHeight && dist < bestDist) {
+          bestDist = dist;
+          best = el;
         }
-      });
-    }, { root: null, threshold: 0.15 });
+      }
+      if (best) setBgStep(best.getAttribute("data-bg-step"));
+    };
 
-    io.observe(swapTarget);
-  } else if (swapTarget) {
-    // Fallback for older browsers
-    window.addEventListener("scroll", () => {
-      const top = swapTarget.getBoundingClientRect().top;
-      setBg(top < window.innerHeight * 0.6 ? "palms" : "sky");
-    }, { passive: true });
+    pickClosest();
+    window.addEventListener("scroll", pickClosest, { passive: true });
+    window.addEventListener("resize", pickClosest);
   }
 
 
