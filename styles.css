@@ -558,3 +558,59 @@ html.js .reveal.is-visible{
   color:var(--muted);
   margin-top:4px;
 }
+
+
+/* ===== Header brand: text + icon on the right ===== */
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  text-decoration:none;
+}
+
+.brand-text-line{
+  font-weight:800;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  font-size:12px;
+}
+
+.brand-logo{
+  height:26px;
+  width:auto;
+}
+
+/* ===== Hero panel with right-side logo ===== */
+.hero-panel{
+  max-width: 940px;
+}
+
+.hero-layout{
+  display:grid;
+  grid-template-columns: 1fr 260px;
+  gap: 28px;
+  align-items:center;
+}
+
+.hero-panel .hero-copy{
+  max-width: none;
+  padding: 0; /* center-panel provides padding */
+}
+
+.hero-art{
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+}
+
+.hero-mark{
+  width: min(260px, 28vw);
+  height: auto;
+  opacity: .14;
+}
+
+@media (max-width: 920px){
+  .hero-layout{ grid-template-columns: 1fr; }
+  .hero-art{ display:none; }
+}
+
