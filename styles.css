@@ -47,7 +47,7 @@ body::before{
 /* PALMS aerial (swap-in) */
 body::after{
   opacity:0;
-  background: url("assets/bg-palms.svg") center / cover no-repeat;
+  background: url("assets/bg-palms.JPG") center / cover no-repeat;
 }
 
 /* Toggle class added by JS when you scroll down */
