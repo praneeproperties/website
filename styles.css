@@ -520,7 +520,7 @@ html.js .reveal.is-visible{
 
 /* ===== Hero placeholder (centered logo) ===== */
 .hero-panel{
-  max-width: 940px;
+  /* width controlled by .center-panel.wide (same as listing boxes) */
 }
 
 .hero-placeholder-wrap{
