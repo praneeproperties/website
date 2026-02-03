@@ -31,20 +31,12 @@ body{
   transition: opacity 900ms ease;
 }
 
-.bg-01{
-  /* sky blue ombre */
-  background: linear-gradient(90deg,
-    #7fb8ee 0%,
-    #bfe0fb 28%,
-    #eaf5ff 52%,
-    #ffffff 76%,
-    #ffffff 100%);
-}
+.bg-01{ background: #1d3557 url("assets/bg-01.jpg?v=1") center/cover no-repeat; }
 
-.bg-02{ background: #1f8b3c url("assets/bg-02.jpg") center/cover no-repeat; }  /* test green */
-.bg-03{ background: #f08a2b url("assets/bg-03.jpg") center/cover no-repeat; }  /* test orange */
-.bg-04{ background: #7a4a2a url("assets/bg-04.jpg") center/cover no-repeat; }  /* test brown */
-.bg-05{ background: #6a3bbd url("assets/bg-05.jpg") center/cover no-repeat; }  .bg-06{ background: #0b0b0b url("assets/bg-06.jpg") center/cover no-repeat; }  /* bg-06 (listing 5) */
+.bg-02{ background: #1f8b3c url("assets/bg-02.jpg?v=1") center/cover no-repeat; }  /* test green */
+.bg-03{ background: #f08a2b url("assets/bg-03.jpg?v=1") center/cover no-repeat; }  /* test orange */
+.bg-04{ background: #7a4a2a url("assets/bg-04.jpg?v=1") center/cover no-repeat; }  /* test brown */
+.bg-05{ background: #6a3bbd url("assets/bg-05.jpg?v=1") center/cover no-repeat; }  .bg-06{ background: #0b0b0b url("assets/bg-06.jpg?v=1") center/cover no-repeat; }  /* bg-06 (listing 5) */
 /* test purple */
 
 /* Which layer is active */
