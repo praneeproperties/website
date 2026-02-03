@@ -58,7 +58,7 @@ body[data-bg="6"] .bg-06{
   background: radial-gradient(1200px 900px at 50% 10%,
     rgba(255,255,255,.22) 0%,
     rgba(255,255,255,0) 55%),
-    rgba(0,0,0,.06);
+    rgba(0,0,0,0);
 }
 
 /* Make sure hero stays transparent so fixed BG shows */
