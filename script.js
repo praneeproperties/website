@@ -1,3 +1,4 @@
+document.documentElement.classList.add("js");
 /* Pranee Properties — tiny vanilla JS for menu + footer year + demo form */
 
 (function () {
@@ -34,6 +35,66 @@
         setExpanded(false);
       }
     });
+  }
+
+
+
+  // Background swap (Sky -> Palms) when rentals section enters viewport
+  const swapTarget = document.querySelector('[data-bg-swap="palms"]');
+  const body = document.body;
+
+  function setBg(mode) {
+    // mode: "sky" | "palms"
+    if (!body) return;
+    body.classList.toggle("bg-palms", mode === "palms");
+  }
+
+  if (swapTarget && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) setBg("palms");
+        else {
+          // If we've scrolled back above the rentals section, return to sky
+          const rect = swapTarget.getBoundingClientRect();
+          if (rect.top > window.innerHeight * 0.25) setBg("sky");
+        }
+      });
+    }, { root: null, threshold: 0.15 });
+
+    io.observe(swapTarget);
+  } else if (swapTarget) {
+    // Fallback for older browsers
+    window.addEventListener("scroll", () => {
+      const top = swapTarget.getBoundingClientRect().top;
+      setBg(top < window.innerHeight * 0.6 ? "palms" : "sky");
+    }, { passive: true });
+  }
+
+
+  // Scroll reveal init
+  const revealEls = Array.from(document.querySelectorAll(".reveal"));
+  if (revealEls.length) {
+    const show = (el) => {
+      const delay = el.getAttribute("data-reveal-delay");
+      if (delay) el.style.transitionDelay = `${Number(delay)}ms`;
+      el.classList.add("is-visible");
+    };
+
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            show(entry.target);
+            obs.unobserve(entry.target); // reveal once
+          }
+        });
+      }, { threshold: 0.15, rootMargin: "0px 0px -10% 0px" });
+
+      revealEls.forEach((el) => io.observe(el));
+    } else {
+      // Fallback: reveal everything immediately
+      revealEls.forEach(show);
+    }
   }
 
   // Demo-only form handler (no backend on GitHub Pages)

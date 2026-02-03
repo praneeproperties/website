@@ -4,26 +4,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Pranee Properties</title>
-  <meta name="description" content="Pranee Properties — presentation-first property marketing with calm, clear communication." />
+  <meta name="description" content="Pranee Properties — clean, modern real estate in Thailand." />
   <meta name="theme-color" content="#ffffff" />
-
-  <!-- Social preview (update once you have a real hero image) -->
-  <meta property="og:title" content="Pranee Properties" />
-  <meta property="og:description" content="Presentation-first property marketing with calm, clear communication." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="assets/hero-placeholder.png" />
-
   <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="styles.css" />
+  <script>document.documentElement.classList.add('js');</script>
 </head>
 
-<body>
+<body class="bg-sky">
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header" data-header>
     <div class="container header-inner">
-      <a class="brand" href="#" aria-label="Pranee Properties home">
-        <img class="brand-logo" src="assets/logo.svg" width="220" height="60" alt="Pranee Properties" />
+      <a class="brand" href="#home" aria-label="Pranee Properties home">
+        <img class="brand-logo" src="assets/logo.svg" alt="Pranee Properties" />
       </a>
 
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
@@ -31,206 +25,185 @@
         <span class="hamburger" aria-hidden="true"></span>
       </button>
 
-      <nav id="site-nav" class="site-nav" aria-label="Primary" data-nav>
-        <a href="#properties">Properties</a>
-        <a href="#services">Services</a>
-        <a href="#about">About</a>
-        <a href="#contact" class="nav-cta">Contact</a>
+      <nav id="site-nav" class="site-nav" aria-label="Primary">
+        <a href="#home" class="active">Home</a>
+        <a href="#sales">Sales</a>
+        <a href="#rentals">Rentals</a>
+        <a href="#agents">Agents</a>
+        <a href="#contact">Contact</a>
       </nav>
     </div>
   </header>
 
   <main id="main">
     <!-- HERO -->
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <p class="kicker">Pranee Properties</p>
-          <h1>Clean presentation. Calm communication. Simple process.</h1>
-          <p class="lead">
-            A small, hands-on property company focused on high-quality photos, video, and a straightforward experience.
-          </p>
-
+    <section id="home" class="hero" aria-label="Hero">
+      <div class="container hero-inner">
+        <div class="hero-copy reveal reveal-up">
+          <h1>Luxury Villa<br>Minutes<br>From the Bay</h1>
+          <div class="hero-price">$3,500,000</div>
+          <p class="lead">Short description goes here. Replace with your featured listing or your main message.</p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#properties">View properties</a>
-            <a class="btn btn-secondary" href="#contact">Enquire</a>
-          </div>
-
-          <div class="hero-meta">
-            <div class="meta-item">
-              <span class="meta-label">Focus</span>
-              <span class="meta-value">Quality marketing</span>
-            </div>
-            <div class="meta-item">
-              <span class="meta-label">Style</span>
-              <span class="meta-value">Minimal & modern</span>
-            </div>
-            <div class="meta-item">
-              <span class="meta-label">Approach</span>
-              <span class="meta-value">Straightforward</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="hero-media" aria-label="Hero media">
-          <!-- Replace this with a real image/video in /assets -->
-          <img
-            class="hero-image"
-            src="assets/hero-placeholder.png"
-            alt="Placeholder — replace with a property image or hero reel poster"
-            loading="eager"
-            decoding="async"
-          />
-          <p class="caption">Replace this placeholder with your hero photo or video poster.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- VALUE PROPS -->
-    <section class="section" aria-label="Value propositions">
-      <div class="container">
-        <div class="grid-3">
-          <div class="card">
-            <h2 class="h3">Presentation-first</h2>
-            <p>Bright, clean photography and simple, modern layouts that make listings easy to understand.</p>
-          </div>
-          <div class="card">
-            <h2 class="h3">Straight communication</h2>
-            <p>Clear timelines, clear expectations, and quick, honest updates.</p>
-          </div>
-          <div class="card">
-            <h2 class="h3">A simple process</h2>
-            <p>From prep → shoot → launch, with a consistent checklist so nothing gets missed.</p>
+            <a class="btn" href="#sales">Read more</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- PROPERTIES -->
-    <section id="properties" class="section">
+    <!-- PROPERTIES FOR SALE (center column, alternating layout) -->
+    <section id="sales" class="section soft">
       <div class="container">
-        <div class="section-head">
-          <h2>Featured properties</h2>
-          <p class="muted">Add real listings when ready. These cards are placeholders.</p>
-        </div>
+        <div class="sales-wrap">
+          <h2>Properties for Sale</h2>
 
-        <div class="grid-3">
-          <article class="listing">
-            <div class="listing-media" aria-hidden="true"></div>
-            <div class="listing-body">
-              <h3>Listing title</h3>
-              <p class="muted">Suburb / Area · 3 Bed · 2 Bath</p>
-              <p class="price">Price on request</p>
-              <a class="text-link" href="#contact">Enquire</a>
+          <article class="sale-item reveal reveal-up">
+            <div class="sale-media reveal reveal-left">
+              <img src="assets/sale-1.svg" alt="Alton Avenue placeholder image" loading="lazy" />
+            </div>
+            <div class="sale-body reveal reveal-right">
+              <h3>Alton<br>Avenue</h3>
+              <div class="beds">3 Bedrooms</div>
+              <p class="muted">Short paragraph describing the property. Keep it simple and clean, just like the template.</p>
+              <div class="price">$500,000</div>
             </div>
           </article>
 
-          <article class="listing">
-            <div class="listing-media" aria-hidden="true"></div>
-            <div class="listing-body">
-              <h3>Listing title</h3>
-              <p class="muted">Suburb / Area · 2 Bed · 2 Bath</p>
-              <p class="price">From $—</p>
-              <a class="text-link" href="#contact">Enquire</a>
+          <article class="sale-item reveal reveal-up">
+            <div class="sale-body reveal reveal-right">
+              <h3>Prince<br>Way</h3>
+              <div class="beds">3 Bedrooms</div>
+              <p class="muted">Short paragraph describing the property. Replace with real copy once listings are ready.</p>
+              <div class="price">$450,000</div>
+            </div>
+            <div class="sale-media reveal reveal-left">
+              <img src="assets/sale-2.svg" alt="Prince Way placeholder image" loading="lazy" />
             </div>
           </article>
 
-          <article class="listing">
-            <div class="listing-media" aria-hidden="true"></div>
-            <div class="listing-body">
-              <h3>Listing title</h3>
-              <p class="muted">Suburb / Area · Land / Villa</p>
-              <p class="price">Auction / Private treaty</p>
-              <a class="text-link" href="#contact">Enquire</a>
+          <article class="sale-item" style="margin-bottom:0">
+            <div class="sale-media reveal reveal-left">
+              <img src="assets/sale-3.svg" alt="Pierce Close placeholder image" loading="lazy" />
+            </div>
+            <div class="sale-body reveal reveal-right">
+              <h3>Pierce<br>Close</h3>
+              <div class="beds">6 Bedrooms</div>
+              <p class="muted">Short paragraph describing the property. Make sure your photos are the hero.</p>
+              <div class="price">$790,000</div>
             </div>
           </article>
-        </div>
 
-        <div class="section-foot">
-          <a class="btn btn-secondary" href="#contact">Request the full list</a>
         </div>
       </div>
     </section>
 
-    <!-- SERVICES -->
-    <section id="services" class="section soft">
+    <!-- LATEST RENTAL PROPERTIES -->
+    <section id="rentals" class="section" data-bg-swap="palms">
       <div class="container">
-        <div class="section-head">
-          <h2>Services</h2>
-          <p class="muted">Simple, practical, and easy to scale.</p>
-        </div>
+        <div class="rent-grid">
+          <h2>Latest Rental Properties</h2>
 
-        <div class="grid-2">
-          <div class="card">
-            <h3 class="h3">Sales & leasing</h3>
-            <ul class="list">
-              <li>Listing strategy + pricing support</li>
-              <li>Professional photography</li>
-              <li>Short-form video / walkthroughs</li>
-              <li>Copywriting & online listings</li>
-            </ul>
-          </div>
+          <div class="rent-items">
+            <article class="rent-card reveal reveal-up" data-reveal-delay="0">
+              <img src="assets/rent-1.svg" alt="East Drive placeholder image" loading="lazy" />
+              <div class="meta">
+                <p class="beds">4 Bedrooms</p>
+                <p class="name">East Drive</p>
+                <p class="muted">Short paragraph. Replace with your real listing copy. Keep it brief.</p>
+                <p class="price">$790,000</p>
+              </div>
+            </article>
 
-          <div class="card">
-            <h3 class="h3">Marketing packages</h3>
-            <ul class="list">
-              <li>Pre-launch checklist</li>
-              <li>Floorplan (optional)</li>
-              <li>Social cut-downs</li>
-              <li>Buyer follow-up & reporting</li>
-            </ul>
+            <article class="rent-card reveal reveal-up" data-reveal-delay="90">
+              <img src="assets/rent-2.svg" alt="Osterley Avenue placeholder image" loading="lazy" />
+              <div class="meta">
+                <p class="beds">3 Bedrooms</p>
+                <p class="name">Osterley Avenue</p>
+                <p class="muted">Short paragraph. Replace with your real listing copy. Keep it brief.</p>
+                <p class="price">$450,000</p>
+              </div>
+            </article>
+
+            <article class="rent-card reveal reveal-up" data-reveal-delay="180">
+              <img src="assets/rent-3.svg" alt="Chase Avenue placeholder image" loading="lazy" />
+              <div class="meta">
+                <p class="beds">3 Bedrooms</p>
+                <p class="name">Chase Avenue</p>
+                <p class="muted">Short paragraph. Replace with your real listing copy. Keep it brief.</p>
+                <p class="price">$500,000</p>
+              </div>
+            </article>
+
+            <article class="rent-card reveal reveal-up" data-reveal-delay="270">
+              <img src="assets/rent-4.svg" alt="Kings Close placeholder image" loading="lazy" />
+              <div class="meta">
+                <p class="beds">2 Bedrooms</p>
+                <p class="name">Kings Close</p>
+                <p class="muted">Short paragraph. Replace with your real listing copy. Keep it brief.</p>
+                <p class="price">$450,000</p>
+              </div>
+            </article>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ABOUT -->
-    <section id="about" class="section">
+    <!-- BADGES / VALUE -->
+    <section id="agents" class="section">
       <div class="container">
-        <div class="grid-2 about">
-          <div>
-            <h2>About Pranee Properties</h2>
-            <p>
-              We’re a small, hands-on team that cares about how a property is presented online.
-              Great photos and video, a clean website, and calm, consistent communication.
-            </p>
-            <p class="muted">
-              Replace this copy with your story: where you operate, what you specialise in, and what makes you different.
-            </p>
-          </div>
+        <div class="badges">
+          <div class="badge-grid">
+            <div class="tile big reveal reveal-up">
+              <div class="bigtext">Voted<br>Number 1<br>Realtor in<br>Phuket</div>
+            </div>
 
-          <div class="card">
-            <h3 class="h3">The checklist</h3>
-            <ol class="list">
-              <li>Prep & styling (as needed)</li>
-              <li>Shoot day (photo + video)</li>
-              <li>Launch + enquiry handling</li>
-              <li>Weekly update until sold/leased</li>
-            </ol>
+            <div class="tile reveal reveal-up">
+              <h3>Free Property Valuation</h3>
+              <p>Short text about valuations. Replace this with your process and response time.</p>
+            </div>
+
+            <div class="tile reveal reveal-up">
+              <h3>Free Registration<br>No Hidden Fees</h3>
+              <p>Short text about how you work. Keep it direct and friendly.</p>
+            </div>
+
+            <div class="tile reveal reveal-up">
+              <h3>Offices in 4<br>Locations</h3>
+              <p>Short text about your service area. Phuket / Bangkok / etc — update later.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="section testimonials" aria-label="Testimonials">
+      <div class="container">
+        <h2>What Our Clients Think</h2>
+
+        <div class="quote-grid">
+          <div class="quote reveal reveal-up">
+            <p>“Short testimonial goes here. Keep it simple and authentic.”</p>
+            <b>Nina & Tom Stone</b>
+          </div>
+          <div class="quote reveal reveal-up">
+            <p>“Short testimonial goes here. Replace with real feedback once you have it.”</p>
+            <b>Angela Peterson</b>
+          </div>
+          <div class="quote reveal reveal-up">
+            <p>“Short testimonial goes here. Focus on the experience and the result.”</p>
+            <b>Paul & Susan Taylor</b>
           </div>
         </div>
       </div>
     </section>
 
     <!-- CONTACT -->
-    <section id="contact" class="section soft">
+    <section id="contact" class="section">
       <div class="container">
-        <div class="section-head">
+        <div class="contact-wrap">
           <h2>Contact</h2>
-          <p class="muted">Add your real email/phone when ready.</p>
-        </div>
 
-        <div class="grid-2 contact">
-          <div class="card">
-            <h3 class="h3">Enquiries</h3>
-            <p><strong>Email:</strong> <a class="text-link" href="mailto:hello@praneeproperties.com">hello@praneeproperties.com</a></p>
-            <p><strong>Phone:</strong> <a class="text-link" href="tel:+61000000000">+61 0 0000 0000</a></p>
-            <p class="muted">Tip: For a real contact form on GitHub Pages, use a form service (Formspree, Basin, etc.).</p>
-          </div>
-
-          <form class="card form" onsubmit="return window.Pranee && window.Pranee.handleContactSubmit(event);">
-            <h3 class="h3">Quick message</h3>
-
+          <form class="form reveal reveal-up" onsubmit="return window.Pranee && window.Pranee.handleContactSubmit(event);">
             <label>
               <span>Name</span>
               <input type="text" name="name" autocomplete="name" required />
@@ -246,8 +219,11 @@
               <textarea name="message" rows="5" required></textarea>
             </label>
 
-            <button class="btn btn-primary" type="submit">Send</button>
+            <button class="btn" type="submit">Send</button>
             <p class="form-note muted" data-form-note aria-live="polite"></p>
+            <p class="muted" style="margin:0">
+              Tip: this is a static demo form (GitHub Pages has no backend). Hook it to Formspree/Basin when ready.
+            </p>
           </form>
         </div>
       </div>
@@ -258,7 +234,7 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <p>© <span data-year></span> Pranee Properties</p>
-      <p class="muted">Built on GitHub Pages · Clean, minimal, fast</p>
+      <p>Built on GitHub Pages · Clean, minimal, fast</p>
     </div>
   </footer>
 
