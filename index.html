@@ -31,11 +31,11 @@
 
   <header class="site-header" data-header>
     <div class="container header-inner">
-      <a class="brand" href="#home" aria-label="Pranee Properties home"><img class="brand-logo" src="assets/pmark.svg" alt="Pranee Properties mark" />
-      <span class="brand-text">
-        <span class="name">Pranee</span>
-        <span class="sub">Properties</span>
-      </span></a>
+      <a class="brand" href="#home" aria-label="Pranee Properties home">
+        <span class="brand-text-line">Pranee Properties</span>
+        <img class="brand-logo" src="assets/pmark.svg" alt="Pranee Properties mark" />
+      </a>
+
 
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
         <span class="sr-only">Open menu</span>
@@ -55,16 +55,25 @@
 <!-- HERO -->
     <section id="home" class="hero" aria-label="Hero" data-bg-step="1">
       <div class="container hero-inner">
-        <div class="hero-copy reveal reveal-up">
-          <h1>Luxury Villa<br>Minutes<br>From the Bay</h1>
-          <div class="hero-price">$3,500,000</div>
-          <p class="lead">Short description goes here. Replace with your featured listing or your main message.</p>
-          <div class="hero-actions">
-            <a class="btn" href="#sales">Read more</a>
+        <div class="center-panel hero-panel reveal reveal-up">
+          <div class="hero-layout">
+            <div class="hero-copy">
+              <h1>Luxury Villa<br>Minutes<br>From the Bay</h1>
+              <div class="hero-price">$3,500,000</div>
+              <p class="lead">Short description goes here. Replace with your featured listing or your main message.</p>
+              <div class="hero-actions">
+                <a class="btn" href="#listings">View listings</a>
+              </div>
+            </div>
+    
+            <div class="hero-art" aria-hidden="true">
+              <img class="hero-mark" src="assets/praneeproperties-logo.svg" alt="" />
+            </div>
           </div>
         </div>
       </div>
     </section>
+
 
 <!-- LISTINGS (each listing triggers a new fixed background) -->
     <section id="listings" class="section" data-bg-step="1" aria-label="Listings">
