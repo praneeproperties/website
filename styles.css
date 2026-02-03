@@ -41,10 +41,10 @@ body{
     #ffffff 100%);
 }
 
-.bg-02{ background: #1f8b3c; }  /* test green */
-.bg-03{ background: #f08a2b; }  /* test orange */
-.bg-04{ background: #7a4a2a; }  /* test brown */
-.bg-05{ background: #6a3bbd; }  /* test purple */
+.bg-02{ background: url("assets/bg-02.jpg") center/cover no-repeat; } /* test green */
+.bg-03{ background: url("assets/bg-03.jpg") center/cover no-repeat; } /* test orange */
+.bg-04{ background: url("assets/bg-04.jpg") center/cover no-repeat; }  /* test brown */
+.bg-05{ background: url("assets/bg-05.jpg") center/cover no-repeat; }  /* test purple */
 
 /* Which layer is active */
 body[data-bg="1"] .bg-01,
