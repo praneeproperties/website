@@ -2,24 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Pranee Properties</title>
-  <meta name="description" content="Pranee Properties — clean, modern real estate in Thailand." />
-  <meta name="theme-color" content="#ffffff" />
-  <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="styles.css" />
-  <script>document.documentElement.classList.add('js');</script>
 
-  <!-- Preload fixed background images -->  <link rel="preload" as="image" href="assets/bg-02.jpg">
+  <!-- Preload fixed background images -->
+  <link rel="preload" as="image" href="assets/bg-02.jpg">
   <link rel="preload" as="image" href="assets/bg-03.jpg">
   <link rel="preload" as="image" href="assets/bg-04.jpg">
   <link rel="preload" as="image" href="assets/bg-05.jpg">
   <link rel="preload" as="image" href="assets/bg-06.jpg">
+
+  <script defer src="script.js"></script>
 </head>
 
-<body class="bg-sky" data-bg="1">
-  
-  <!-- Fixed background layers (fade between them as you scroll) -->
+<body data-bg="1">
+  <!-- Fixed background layers -->
   <div class="bg-layer bg-01" aria-hidden="true"></div>
   <div class="bg-layer bg-02" aria-hidden="true"></div>
   <div class="bg-layer bg-03" aria-hidden="true"></div>
@@ -27,22 +25,21 @@
   <div class="bg-layer bg-05" aria-hidden="true"></div>
   <div class="bg-layer bg-06" aria-hidden="true"></div>
   <div class="bg-vignette" aria-hidden="true"></div>
-<a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header" data-header>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="#home" aria-label="Pranee Properties home">
-  <span class="brand-text-line">Pranee Properties</span>
-  <img class="brand-logo" src="assets/pmark.svg" alt="Pranee Properties mark" />
-</a>
+        <span class="brand-text-line">Pranee Properties</span>
+        <img class="brand-logo" src="assets/pmark.svg" alt="Pranee Properties mark" />
+      </a>
 
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
-        <span class="sr-only">Open menu</span>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
         <span class="hamburger" aria-hidden="true"></span>
       </button>
 
-      <nav id="site-nav" class="site-nav" aria-label="Primary">
-        <a href="#home" class="active">Home</a>
+      <nav class="site-nav" aria-label="Primary">
         <a href="#listings">Listings</a>
         <a href="#testimonials">Testimonials</a>
         <a href="#contact">Contact</a>
@@ -51,272 +48,226 @@
   </header>
 
   <main id="main">
-<!-- HERO -->
+    <!-- HERO -->
     <section id="home" class="hero" aria-label="Hero" data-bg-step="1">
-  <div class="container hero-inner">
-    <div class="center-panel wide hero-panel reveal reveal-up">
-      <div class="hero-placeholder-wrap">
-        <img class="hero-placeholder" src="assets/hero-placeholder.png" alt="Pranee Properties" />
+      <div class="container hero-inner">
+        <!-- NOTE: wide = same width as the listing boxes -->
+        <div class="center-panel wide hero-panel reveal reveal-up">
+          <div class="hero-placeholder-wrap">
+            <img class="hero-placeholder" src="assets/hero-placeholder.png" alt="Pranee Properties" />
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- LISTINGS (each listing triggers a new fixed background) -->
-    <section id="listings" class="section" data-bg-step="1" aria-label="Listings">
+    <!-- LISTINGS -->
+    <section id="listings" class="section" aria-label="Listings">
       <div class="container">
-        <div class="center-panel soft reveal reveal-up">
-          <h2>Featured Listings</h2>
-          <p class="muted" style="text-align:center; margin:0;">
-            Scroll to move through each property — the background fades to match the listing.
-          </p>
-        </div>
+        <h2 class="reveal reveal-up">Properties for sale</h2>
       </div>
-    </section>
 
-    <!-- Listing 01 -->
-    <section class="section" id="pp-01" data-bg-step="2" aria-label="Listing 1">
-      <div class="container listing-scene">
-        <div class="center-panel wide reveal reveal-up">
-          <div class="listing-panel">
-            <div>
-              <div class="kicker">Featured Listing</div>
-              <h3 class="listing-title">Palm Ridge<br>Villa</h3>
-              <div class="listing-price">From ฿18,500,000</div>
-
-              <div class="listing-meta">
-                <span class="pill">Phuket</span>
-                <span class="pill">3 Beds</span>
-                <span class="pill">3 Baths</span>
-                <span class="pill">280 sqm</span>
-                <span class="pill">Pool</span>
+      <!-- Listing 1 -->
+      <section class="listing-scene" data-bg-step="2" aria-label="Listing 1">
+        <div class="container">
+          <div class="center-panel wide reveal reveal-up">
+            <div class="listing-panel">
+              <div>
+                <div class="kicker">Featured listing</div>
+                <h3 class="listing-title">Oceanview Villa</h3>
+                <div class="listing-meta">
+                  <span class="pill">3 Bed</span>
+                  <span class="pill">3 Bath</span>
+                  <span class="pill">Pool</span>
+                  <span class="pill">Phuket</span>
+                </div>
+                <div class="listing-price">$3,500,000</div>
+                <p class="listing-note">Replace this with a short, premium description of the listing.</p>
+                <div class="listing-actions">
+                  <a class="btn" href="#contact">Enquire</a>
+                  <a class="btn secondary" href="#contact">Request brochure</a>
+                </div>
               </div>
 
-              <p class="muted">
-                Add 3–5 lines that sell the property: location, view, style, and lifestyle.
-                This format keeps the page clean and “brochure-like”.
-              </p>
-
-              <div class="listing-actions">
-                <a class="btn" href="#contact">Enquire</a>
-                <a class="btn secondary" href="#contact">Request brochure</a>
-              </div>
-
-              <p class="listing-note">Background image file: <b>assets/bg-02.jpg</b></p>
+              <aside class="detail-card">
+                <h3>Details</h3>
+                <ul class="detail-list">
+                  <li><b>Land</b><span>— sqm</span></li>
+                  <li><b>Build</b><span>— sqm</span></li>
+                  <li><b>View</b><span>Sea</span></li>
+                  <li><b>Status</b><span>For sale</span></li>
+                </ul>
+              </aside>
             </div>
-
-            <aside class="detail-card">
-              <h3>Quick Details</h3>
-              <ul class="detail-list">
-                <li><b>Type</b><span>Villa</span></li>
-                <li><b>Status</b><span>For Sale</span></li>
-                <li><b>Land</b><span>420 sqm</span></li>
-                <li><b>Title</b><span>Chanote</span></li>
-                <li><b>Area</b><span>Near beach</span></li>
-              </ul>
-            </aside>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Listing 02 -->
-    <section class="section" id="pp-02" data-bg-step="3" aria-label="Listing 2">
-      <div class="container listing-scene">
-        <div class="center-panel wide reveal reveal-up">
-          <div class="listing-panel">
-            <div>
-              <div class="kicker">Featured Listing</div>
-              <h3 class="listing-title">Lagoon<br>Residences</h3>
-              <div class="listing-price">From ฿12,900,000</div>
-
-              <div class="listing-meta">
-                <span class="pill">Bang Tao</span>
-                <span class="pill">2–3 Beds</span>
-                <span class="pill">2 Baths</span>
-                <span class="pill">160–240 sqm</span>
-                <span class="pill">Gated</span>
+      <!-- Listing 2 -->
+      <section class="listing-scene" data-bg-step="3" aria-label="Listing 2">
+        <div class="container">
+          <div class="center-panel wide reveal reveal-up">
+            <div class="listing-panel">
+              <div>
+                <div class="kicker">Listing</div>
+                <h3 class="listing-title">Hilltop Retreat</h3>
+                <div class="listing-meta">
+                  <span class="pill">4 Bed</span>
+                  <span class="pill">4 Bath</span>
+                  <span class="pill">Sunset</span>
+                  <span class="pill">Island views</span>
+                </div>
+                <div class="listing-price">$—</div>
+                <p class="listing-note">Replace this copy with the key selling points.</p>
+                <div class="listing-actions">
+                  <a class="btn" href="#contact">Enquire</a>
+                  <a class="btn secondary" href="#contact">Request brochure</a>
+                </div>
               </div>
 
-              <p class="muted">
-                Ideal for a “project” listing: highlight the lifestyle, facilities, and the range of options.
-              </p>
-
-              <div class="listing-actions">
-                <a class="btn" href="#contact">Enquire</a>
-                <a class="btn secondary" href="#contact">Request brochure</a>
-              </div>
-
-              <p class="listing-note">Background image file: <b>assets/bg-03.jpg</b></p>
+              <aside class="detail-card">
+                <h3>Details</h3>
+                <ul class="detail-list">
+                  <li><b>Land</b><span>— sqm</span></li>
+                  <li><b>Build</b><span>— sqm</span></li>
+                  <li><b>View</b><span>Mountain</span></li>
+                  <li><b>Status</b><span>For sale</span></li>
+                </ul>
+              </aside>
             </div>
-
-            <aside class="detail-card">
-              <h3>Quick Details</h3>
-              <ul class="detail-list">
-                <li><b>Type</b><span>Residence</span></li>
-                <li><b>Status</b><span>For Sale</span></li>
-                <li><b>Build</b><span>New</span></li>
-                <li><b>Parking</b><span>1–2</span></li>
-                <li><b>Facilities</b><span>Gym / Pool</span></li>
-              </ul>
-            </aside>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Listing 03 -->
-    <section class="section" id="pp-03" data-bg-step="4" aria-label="Listing 3">
-      <div class="container listing-scene">
-        <div class="center-panel wide reveal reveal-up">
-          <div class="listing-panel">
-            <div>
-              <div class="kicker">Featured Listing</div>
-              <h3 class="listing-title">Garden<br>Courtyard</h3>
-              <div class="listing-price">From ฿9,750,000</div>
-
-              <div class="listing-meta">
-                <span class="pill">Kata</span>
-                <span class="pill">3 Beds</span>
-                <span class="pill">2 Baths</span>
-                <span class="pill">210 sqm</span>
-                <span class="pill">Renovated</span>
+      <!-- Listing 3 -->
+      <section class="listing-scene" data-bg-step="4" aria-label="Listing 3">
+        <div class="container">
+          <div class="center-panel wide reveal reveal-up">
+            <div class="listing-panel">
+              <div>
+                <div class="kicker">Listing</div>
+                <h3 class="listing-title">Palm Garden Land</h3>
+                <div class="listing-meta">
+                  <span class="pill">Land</span>
+                  <span class="pill">Flat</span>
+                  <span class="pill">Road access</span>
+                  <span class="pill">Utilities</span>
+                </div>
+                <div class="listing-price">$—</div>
+                <p class="listing-note">Perfect for villas, boutique resort, or development.</p>
+                <div class="listing-actions">
+                  <a class="btn" href="#contact">Enquire</a>
+                  <a class="btn secondary" href="#contact">Request brochure</a>
+                </div>
               </div>
 
-              <p class="muted">
-                Great for a family-style listing: privacy, garden space, and walkability.
-              </p>
-
-              <div class="listing-actions">
-                <a class="btn" href="#contact">Enquire</a>
-                <a class="btn secondary" href="#contact">Request brochure</a>
-              </div>
-
-              <p class="listing-note">Background image file: <b>assets/bg-04.jpg</b></p>
+              <aside class="detail-card">
+                <h3>Details</h3>
+                <ul class="detail-list">
+                  <li><b>Land</b><span>— sqm</span></li>
+                  <li><b>Zoning</b><span>—</span></li>
+                  <li><b>Title</b><span>—</span></li>
+                  <li><b>Status</b><span>For sale</span></li>
+                </ul>
+              </aside>
             </div>
-
-            <aside class="detail-card">
-              <h3>Quick Details</h3>
-              <ul class="detail-list">
-                <li><b>Type</b><span>House</span></li>
-                <li><b>Status</b><span>For Sale</span></li>
-                <li><b>Land</b><span>360 sqm</span></li>
-                <li><b>Furnish</b><span>Partial</span></li>
-                <li><b>Drive</b><span>10 min beach</span></li>
-              </ul>
-            </aside>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Listing 04 -->
-    <section class="section" id="pp-04" data-bg-step="5" aria-label="Listing 4">
-      <div class="container listing-scene">
-        <div class="center-panel wide reveal reveal-up">
-          <div class="listing-panel">
-            <div>
-              <div class="kicker">Featured Listing</div>
-              <h3 class="listing-title">Hillside<br>Sea View</h3>
-              <div class="listing-price">From ฿24,800,000</div>
-
-              <div class="listing-meta">
-                <span class="pill">Kamala</span>
-                <span class="pill">4 Beds</span>
-                <span class="pill">4 Baths</span>
-                <span class="pill">340 sqm</span>
-                <span class="pill">Sea View</span>
+      <!-- Listing 4 -->
+      <section class="listing-scene" data-bg-step="5" aria-label="Listing 4">
+        <div class="container">
+          <div class="center-panel wide reveal reveal-up">
+            <div class="listing-panel">
+              <div>
+                <div class="kicker">Listing</div>
+                <h3 class="listing-title">Beachside Modern</h3>
+                <div class="listing-meta">
+                  <span class="pill">2 Bed</span>
+                  <span class="pill">2 Bath</span>
+                  <span class="pill">Walk to beach</span>
+                  <span class="pill">New build</span>
+                </div>
+                <div class="listing-price">$—</div>
+                <p class="listing-note">Ideal for lifestyle living or premium rental yield.</p>
+                <div class="listing-actions">
+                  <a class="btn" href="#contact">Enquire</a>
+                  <a class="btn secondary" href="#contact">Request brochure</a>
+                </div>
               </div>
 
-              <p class="muted">
-                Premium listing: view, positioning, and a strong photo-first story.
-              </p>
-
-              <div class="listing-actions">
-                <a class="btn" href="#contact">Enquire</a>
-                <a class="btn secondary" href="#contact">Request brochure</a>
-              </div>
-
-              <p class="listing-note">Background image file: <b>assets/bg-05.jpg</b></p>
+              <aside class="detail-card">
+                <h3>Details</h3>
+                <ul class="detail-list">
+                  <li><b>Build</b><span>— sqm</span></li>
+                  <li><b>Year</b><span>—</span></li>
+                  <li><b>Parking</b><span>—</span></li>
+                  <li><b>Status</b><span>For sale</span></li>
+                </ul>
+              </aside>
             </div>
-
-            <aside class="detail-card">
-              <h3>Quick Details</h3>
-              <ul class="detail-list">
-                <li><b>Type</b><span>Villa</span></li>
-                <li><b>Status</b><span>For Sale</span></li>
-                <li><b>Pool</b><span>Infinity</span></li>
-                <li><b>Title</b><span>Leasehold</span></li>
-                <li><b>Sunset</b><span>West view</span></li>
-              </ul>
-            </aside>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Listing 05 -->
-    <section class="section" id="pp-05" data-bg-step="6" aria-label="Listing 5">
-      <div class="container listing-scene">
-        <div class="center-panel wide reveal reveal-up">
-          <div class="listing-panel">
-            <div>
-              <div class="kicker">Featured Listing</div>
-              <h3 class="listing-title">Coconut<br>Land Plot</h3>
-              <div class="listing-price">From ฿6,900,000</div>
-
-              <div class="listing-meta">
-                <span class="pill">Raw Land</span>
-                <span class="pill">Rows of palms</span>
-                <span class="pill">Road access</span>
-                <span class="pill">Utilities nearby</span>
+      <!-- Listing 5 -->
+      <section class="listing-scene" data-bg-step="6" aria-label="Listing 5">
+        <div class="container">
+          <div class="center-panel wide reveal reveal-up">
+            <div class="listing-panel">
+              <div>
+                <div class="kicker">Listing</div>
+                <h3 class="listing-title">Island View Plot</h3>
+                <div class="listing-meta">
+                  <span class="pill">Land</span>
+                  <span class="pill">View</span>
+                  <span class="pill">Quiet</span>
+                  <span class="pill">Investment</span>
+                </div>
+                <div class="listing-price">$—</div>
+                <p class="listing-note">Clean, simple, and ready to develop.</p>
+                <div class="listing-actions">
+                  <a class="btn" href="#contact">Enquire</a>
+                  <a class="btn secondary" href="#contact">Request brochure</a>
+                </div>
               </div>
 
-              <p class="muted">
-                This is where your drone top-down shot shines. Keep it simple: zoning, access, and potential.
-              </p>
-
-              <div class="listing-actions">
-                <a class="btn" href="#contact">Enquire</a>
-                <a class="btn secondary" href="#contact">Request brochure</a>
-              </div>
-
-              <p class="listing-note">Background image file: <b>assets/bg-06.jpg</b></p>
+              <aside class="detail-card">
+                <h3>Details</h3>
+                <ul class="detail-list">
+                  <li><b>Land</b><span>— sqm</span></li>
+                  <li><b>Access</b><span>—</span></li>
+                  <li><b>Title</b><span>—</span></li>
+                  <li><b>Status</b><span>For sale</span></li>
+                </ul>
+              </aside>
             </div>
-
-            <aside class="detail-card">
-              <h3>Quick Details</h3>
-              <ul class="detail-list">
-                <li><b>Type</b><span>Land</span></li>
-                <li><b>Status</b><span>For Sale</span></li>
-                <li><b>Size</b><span>1–2 Rai</span></li>
-                <li><b>Access</b><span>Road</span></li>
-                <li><b>Best use</b><span>Villa build</span></li>
-              </ul>
-            </aside>
           </div>
         </div>
-      </div>
+      </section>
     </section>
 
-    <!-- TESTIMONIALS -->
-    <section id="testimonials" class="section testimonials" data-bg-step="6" aria-label="Testimonials">
+    <!-- WHITE RESET so the page ends clean like the top -->
+    <section class="bg-reset" data-bg-step="1" aria-hidden="true"></section>
+
+    <!-- TESTIMONIALS (now dark text, clean white background) -->
+    <section id="testimonials" class="section testimonials" aria-label="Testimonials">
       <div class="container">
-        <div class="center-panel dark">
-          <h2>What Our Clients Think</h2>
+        <div class="center-panel wide reveal reveal-up">
+          <h2>Testimonials</h2>
 
           <div class="quote-grid">
-            <div class="quote reveal reveal-up">
-              <p>“Short testimonial goes here. Keep it simple and authentic.”</p>
-              <b>Nina & Tom Stone</b>
+            <div class="quote">
+              <p>“Short testimonial goes here. Replace with real client feedback.”</p>
+              <b>Client name</b>
             </div>
-            <div class="quote reveal reveal-up">
-              <p>“Short testimonial goes here. Replace with real feedback once you have it.”</p>
-              <b>Angela Peterson</b>
+            <div class="quote">
+              <p>“Another testimonial. Keep these tight and premium.”</p>
+              <b>Client name</b>
             </div>
-            <div class="quote reveal reveal-up">
-              <p>“Short testimonial goes here. Focus on the experience and the result.”</p>
-              <b>Paul & Susan Taylor</b>
+            <div class="quote">
+              <p>“One more testimonial. The tone should match luxury + trust.”</p>
+              <b>Client name</b>
             </div>
           </div>
         </div>
@@ -324,46 +275,47 @@
     </section>
 
     <!-- CONTACT -->
-    <section id="contact" class="section" data-bg-step="6" aria-label="Contact">
+    <section id="contact" class="section" aria-label="Contact">
       <div class="container">
-        <div class="contact-wrap center-panel reveal reveal-up">
+        <div class="center-panel wide reveal reveal-up">
           <h2>Contact</h2>
 
-          <form class="form reveal reveal-up" onsubmit="return window.Pranee && window.Pranee.handleContactSubmit(event);">
-            <label>
-              <span>Name</span>
-              <input type="text" name="name" autocomplete="name" required />
-            </label>
+          <div class="contact-wrap">
+            <form class="form" action="#" method="post">
+              <label>
+                <span>Name</span>
+                <input type="text" name="name" autocomplete="name" required>
+              </label>
 
-            <label>
-              <span>Email</span>
-              <input type="email" name="email" autocomplete="email" required />
-            </label>
+              <label>
+                <span>Email</span>
+                <input type="email" name="email" autocomplete="email" required>
+              </label>
 
-            <label>
-              <span>Message</span>
-              <textarea name="message" rows="5" required></textarea>
-            </label>
+              <label>
+                <span>Message</span>
+                <textarea name="message" required></textarea>
+              </label>
 
-            <button class="btn" type="submit">Send</button>
-            <p class="form-note muted" data-form-note aria-live="polite"></p>
-            <p class="muted" style="margin:0">
-              Tip: this is a static demo form (GitHub Pages has no backend). Hook it to Formspree/Basin when ready.
-            </p>
-          </form>
+              <button class="btn" type="submit">Send</button>
+              <div class="form-note muted" aria-live="polite"></div>
+            </form>
+          </div>
         </div>
       </div>
     </section>
-</main>
 
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>© <span id="year"></span> Pranee Properties</div>
+        <div class="muted">Phuket, Thailand</div>
+      </div>
+    </footer>
+  </main>
 
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p>© <span data-year></span> Pranee Properties</p>
-      <p>Built on GitHub Pages · Clean, minimal, fast</p>
-    </div>
-  </footer>
-
-  <script src="script.js" defer></script>
+  <script>
+    // Tiny helper for footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
