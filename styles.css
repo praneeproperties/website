@@ -88,6 +88,29 @@ a{color:inherit}
   z-index:9999;
 }
 
+
+.brand{
+  display:flex;
+  align-items:center;
+  text-decoration:none;
+}
+
+.brand-wordmark{
+  height: 26px;      /* small header logo size */
+  width: auto;
+  display:block;
+  max-width: 260px;
+}
+
+@media (max-width: 920px){
+  .brand-wordmark{
+    height: 22px;
+    max-width: 210px;
+  }
+}
+
+
+
 .site-header{
   position:sticky; top:0; z-index:50;
   background:rgba(255,255,255,.95);
