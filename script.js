@@ -1,14 +1,17 @@
 document.documentElement.classList.add("js");
-/* Pranee Properties — tiny vanilla JS for menu + footer year + demo form */
+/* Pranee Properties — tiny vanilla JS for menu + year + background steps + reveal */
 
 (function () {
-  const header = document.querySelector("[data-header]");
-  const navToggle = document.querySelector("[data-nav-toggle]");
-  const yearEl = document.querySelector("[data-year]");
-  const formNote = document.querySelector("[data-form-note]");
+  const header   = document.querySelector(".site-header");
+  const nav      = document.querySelector(".site-nav");
+  const navToggle = document.querySelector(".nav-toggle");
+  const yearEl   = document.getElementById("year");
+  const formNote = document.querySelector(".form-note");
 
+  // Footer year
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
+  // Mobile nav toggle
   function setExpanded(expanded) {
     if (!navToggle || !header) return;
     navToggle.setAttribute("aria-expanded", expanded ? "true" : "false");
@@ -37,10 +40,9 @@ document.documentElement.classList.add("js");
     });
   }
 
-
-
-
-  // Multi background steps (fade between 1..5)
+  // =========================================================
+  // Multi background steps (fade between 1..6)
+  // =========================================================
   const bgSteps = Array.from(document.querySelectorAll("[data-bg-step]"));
   const bodyEl = document.body;
 
@@ -51,7 +53,6 @@ document.documentElement.classList.add("js");
   };
 
   if (bgSteps.length) {
-    // Pick the section closest to the middle of the screen
     const pickClosest = () => {
       const mid = window.innerHeight * 0.45;
       let best = null;
@@ -60,11 +61,14 @@ document.documentElement.classList.add("js");
       for (const el of bgSteps) {
         const rect = el.getBoundingClientRect();
         const dist = Math.abs(rect.top - mid);
+
+        // Only consider elements that are at least partially in view
         if (rect.bottom > 0 && rect.top < window.innerHeight && dist < bestDist) {
           bestDist = dist;
           best = el;
         }
       }
+
       if (best) setBgStep(best.getAttribute("data-bg-step"));
     };
 
@@ -73,34 +77,41 @@ document.documentElement.classList.add("js");
     window.addEventListener("resize", pickClosest);
   }
 
-
-
-  // Active nav on scroll (simple)
-  const navLinks = Array.from(document.querySelectorAll('#site-nav a'));
+  // =========================================================
+  // Active nav on scroll
+  // =========================================================
+  const navLinks = nav ? Array.from(nav.querySelectorAll("a")) : [];
   const sectionsForNav = navLinks
-    .map(a => document.querySelector(a.getAttribute('href')))
+    .map(a => document.querySelector(a.getAttribute("href")))
     .filter(Boolean);
 
   const setActive = () => {
+    if (!navLinks.length || !sectionsForNav.length) return;
+
     const mid = window.innerHeight * 0.35;
     let best = null;
     let bestDist = Infinity;
+
     for (const sec of sectionsForNav) {
       const r = sec.getBoundingClientRect();
       if (r.bottom <= 0 || r.top >= window.innerHeight) continue;
       const d = Math.abs(r.top - mid);
       if (d < bestDist) { bestDist = d; best = sec; }
     }
+
     if (!best) return;
-    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + best.id));
+    navLinks.forEach(a =>
+      a.classList.toggle("active", a.getAttribute("href") === "#" + best.id)
+    );
   };
 
   setActive();
-  window.addEventListener('scroll', setActive, { passive: true });
-  window.addEventListener('resize', setActive);
+  window.addEventListener("scroll", setActive, { passive: true });
+  window.addEventListener("resize", setActive);
 
-
+  // =========================================================
   // Scroll reveal init
+  // =========================================================
   const revealEls = Array.from(document.querySelectorAll(".reveal"));
   if (revealEls.length) {
     const show = (el) => {
@@ -114,19 +125,20 @@ document.documentElement.classList.add("js");
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             show(entry.target);
-            obs.unobserve(entry.target); // reveal once
+            obs.unobserve(entry.target);
           }
         });
       }, { threshold: 0.15, rootMargin: "0px 0px -10% 0px" });
 
       revealEls.forEach((el) => io.observe(el));
     } else {
-      // Fallback: reveal everything immediately
       revealEls.forEach(show);
     }
   }
 
+  // =========================================================
   // Demo-only form handler (no backend on GitHub Pages)
+  // =========================================================
   window.Pranee = {
     handleContactSubmit: function (event) {
       event.preventDefault();
