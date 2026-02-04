@@ -51,7 +51,6 @@
     <!-- HERO -->
     <section id="home" class="hero" aria-label="Hero" data-bg-step="1">
       <div class="container hero-inner">
-        <!-- NOTE: wide = same width as the listing boxes -->
         <div class="center-panel wide hero-panel reveal reveal-up">
           <div class="hero-placeholder-wrap">
             <img class="hero-placeholder" src="assets/hero-placeholder.png" alt="Pranee Properties" />
@@ -250,7 +249,7 @@
     <!-- WHITE RESET so the page ends clean like the top -->
     <section class="bg-reset" data-bg-step="1" aria-hidden="true"></section>
 
-    <!-- TESTIMONIALS (now dark text, clean white background) -->
+    <!-- TESTIMONIALS (dark text, clean white background) -->
     <section id="testimonials" class="section testimonials" aria-label="Testimonials">
       <div class="container">
         <div class="center-panel wide reveal reveal-up">
@@ -281,7 +280,7 @@
           <h2>Contact</h2>
 
           <div class="contact-wrap">
-            <form class="form" action="#" method="post">
+            <form class="form" action="#" method="post" onsubmit="return Pranee.handleContactSubmit(event)">
               <label>
                 <span>Name</span>
                 <input type="text" name="name" autocomplete="name" required>
@@ -312,10 +311,5 @@
       </div>
     </footer>
   </main>
-
-  <script>
-    // Tiny helper for footer year
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
 </body>
 </html>

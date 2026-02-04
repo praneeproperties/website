@@ -2,11 +2,11 @@ document.documentElement.classList.add("js");
 /* Pranee Properties — tiny vanilla JS for menu + year + background steps + reveal */
 
 (function () {
-  const header   = document.querySelector(".site-header");
-  const nav      = document.querySelector(".site-nav");
+  const header    = document.querySelector(".site-header");
+  const nav       = document.querySelector(".site-nav");
   const navToggle = document.querySelector(".nav-toggle");
-  const yearEl   = document.getElementById("year");
-  const formNote = document.querySelector(".form-note");
+  const yearEl    = document.getElementById("year");
+  const formNote  = document.querySelector(".form-note");
 
   // Footer year
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());

@@ -32,7 +32,6 @@ body{
 }
 
 .bg-01{ background:#ffffff; } /* top = pure white */
-
 .bg-02{ background:#ffffff url("assets/bg-02.jpg?v=1") center/cover no-repeat; } /* white */
 .bg-03{ background:#f3f3f3 url("assets/bg-03.jpg?v=1") center/cover no-repeat; } /* light grey */
 .bg-04{ background:#ffffff url("assets/bg-04.jpg?v=1") center/cover no-repeat; } /* white */
@@ -59,7 +58,7 @@ body[data-bg="6"] .bg-06{ opacity: 1; }
 
 /* Invisible scroll trigger that resets background to white near bottom */
 .bg-reset{
-  height: 35vh;          /* adjust: bigger = earlier reset */
+  height: 50vh;          /* triggers earlier so testimonials/contact are clean white */
   background: transparent;
 }
 
