@@ -96,10 +96,10 @@ a{color:inherit}
 }
 
 .brand-wordmark{
-  height: 24px;      /* small header logo size */
+  height: 26px;      /* small header logo size */
   width: auto;
   display:block;
-  max-width: 240px;
+  max-width: 260px;
 }
 
 @media (max-width: 920px){
@@ -108,6 +108,7 @@ a{color:inherit}
     max-width: 210px;
   }
 }
+
 
 
 
