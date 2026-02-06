@@ -571,10 +571,7 @@ html.js .reveal.is-visible{
 .brand{
   gap:12px;
 }
-.brand-logo{
-  height:34px;
-  width:auto;
-}
+
 .brand-text{
   display:flex;
   flex-direction:column;
