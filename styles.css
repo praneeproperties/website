@@ -235,7 +235,7 @@ p{margin:0 0 10px}
 }
 
 .hero-inner{
-  min-height: clamp(520px, 78vh, 920px);
+  min-height: clamp(260px, 39vh, 460px);
   display:flex;
   align-items:center;
 }
