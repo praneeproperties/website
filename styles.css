@@ -223,23 +223,32 @@ p{margin:0 0 10px}
 .center-panel.soft{ background: var(--soft); }
 .center-panel.wide{ max-width: 940px; }
 
-/* ===== Hero ===== */
-.hero{ padding:0; background:transparent; } /* important: no hero-right.svg */
+/* ===== Hero (full-width white background) ===== */
+.hero{
+  padding:0;
+  background: transparent;
+}
+
+.hero-band{
+  background:#ffffff;
+  border-bottom:1px solid rgba(0,0,0,.10);
+}
+
 .hero-inner{
   min-height: clamp(520px, 78vh, 920px);
   display:flex;
   align-items:center;
 }
-.hero-box{ padding:0; }
-.hero-copy{ max-width: none; }
-.hero-price{
-  margin-top:18px;
-  font-weight:700;
-  color:var(--accent);
-  letter-spacing:.04em;
+
+.hero-copy{
+  max-width: 720px;         /* keeps text nice + premium */
+  padding: 78px 0;
 }
-.hero-copy .lead{max-width:44ch; margin-top:14px; color:#2a2a2a}
-.hero-actions{margin-top:22px}
+
+@media (max-width: 920px){
+  .hero-copy{ padding: 56px 0; }
+}
+
 
 /* ===== Listing spotlight layout ===== */
 .listing-scene{
