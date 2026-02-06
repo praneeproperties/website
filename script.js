@@ -1,5 +1,4 @@
-document.documentElement.classList.add("js");
-/* Pranee Properties — tiny vanilla JS for menu + footer year + demo form */
+/* Pranee Properties — tiny vanilla JS for menu + footer year + reveal + bg fade */
 
 (function () {
   const header = document.querySelector("[data-header]");
@@ -37,10 +36,7 @@ document.documentElement.classList.add("js");
     });
   }
 
-
-
-
-  // Multi background steps (fade between 1..5)
+  // Multi background steps (fade between 1..6)
   const bgSteps = Array.from(document.querySelectorAll("[data-bg-step]"));
   const bodyEl = document.body;
 
@@ -51,8 +47,13 @@ document.documentElement.classList.add("js");
   };
 
   if (bgSteps.length) {
-    // Pick the section closest to the middle of the screen
     const pickClosest = () => {
+      // Lock top to step 1 (prevents jumping to listing 1 on tall screens)
+      if (window.scrollY <= 10) {
+        setBgStep(1);
+        return;
+      }
+
       const mid = window.innerHeight * 0.45;
       let best = null;
       let bestDist = Infinity;
@@ -73,8 +74,6 @@ document.documentElement.classList.add("js");
     window.addEventListener("resize", pickClosest);
   }
 
-
-
   // Active nav on scroll (simple)
   const navLinks = Array.from(document.querySelectorAll('#site-nav a'));
   const sectionsForNav = navLinks
@@ -85,12 +84,14 @@ document.documentElement.classList.add("js");
     const mid = window.innerHeight * 0.35;
     let best = null;
     let bestDist = Infinity;
+
     for (const sec of sectionsForNav) {
       const r = sec.getBoundingClientRect();
       if (r.bottom <= 0 || r.top >= window.innerHeight) continue;
       const d = Math.abs(r.top - mid);
       if (d < bestDist) { bestDist = d; best = sec; }
     }
+
     if (!best) return;
     navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + best.id));
   };
@@ -98,7 +99,6 @@ document.documentElement.classList.add("js");
   setActive();
   window.addEventListener('scroll', setActive, { passive: true });
   window.addEventListener('resize', setActive);
-
 
   // Scroll reveal init
   const revealEls = Array.from(document.querySelectorAll(".reveal"));
@@ -114,19 +114,18 @@ document.documentElement.classList.add("js");
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             show(entry.target);
-            obs.unobserve(entry.target); // reveal once
+            obs.unobserve(entry.target);
           }
         });
       }, { threshold: 0.15, rootMargin: "0px 0px -10% 0px" });
 
       revealEls.forEach((el) => io.observe(el));
     } else {
-      // Fallback: reveal everything immediately
       revealEls.forEach(show);
     }
   }
 
-  // Demo-only form handler (no backend on GitHub Pages)
+  // Demo-only form handler
   window.Pranee = {
     handleContactSubmit: function (event) {
       event.preventDefault();
