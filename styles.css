@@ -90,32 +90,49 @@ body[data-bg="6"] .bg-06{ opacity:1; }
   border-bottom:1px solid var(--line);
 }
 .header-inner{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  min-height:78px;
-  gap:16px;
+  display:flex; align-items:center; justify-content:space-between;
+  min-height:92px; gap:16px;
 }
 
+@media (max-width: 920px){
+  .header-inner{ min-height:84px; }
+}
+
+
+/* ===== Header brand wordmark (bigger) ===== */
 .brand{
   display:flex;
   align-items:center;
   text-decoration:none;
-  gap:12px;
+  gap:12px;            /* optional */
 }
 
-/* Desktop */
 .brand-wordmark{
-  height:50px;
-  width:auto;
+  height: 64px;
+  width: auto;
   display:block;
-  max-width:320px;
+  max-width: 420px;
+  object-fit: contain;
+  flex-shrink: 0;      /* recommended */
 }
-.brand-mark{
-  height:22px;
-  width:auto;
-  opacity:.9;
+
+
+/* Tablet / mobile */
+@media (max-width: 920px){
+  .brand-wordmark{
+    height: 46px;     /* bigger on mobile */
+    max-width: 360px;
+  }
 }
+
+/* Small phones */
+@media (max-width: 420px){
+  .brand-wordmark{
+    height: 42px;
+    max-width: 320px;
+  }
+}
+
 
 .site-nav{
   display:flex;
@@ -125,6 +142,9 @@ body[data-bg="6"] .bg-06{ opacity:1; }
   text-transform:uppercase;
   font-size:12px;
 }
+
+
+
 .site-nav a{text-decoration:none; padding:10px 0}
 .site-nav a:hover{opacity:.7}
 .site-nav a.active{color:var(--accent)}
