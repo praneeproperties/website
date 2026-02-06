@@ -10,15 +10,16 @@
   <link rel="stylesheet" href="styles.css" />
   <script>document.documentElement.classList.add('js');</script>
 
-  <!-- Preload fixed background images -->  <link rel="preload" as="image" href="assets/bg-02.jpg">
+  <!-- Preload fixed background images -->
+  <link rel="preload" as="image" href="assets/bg-02.jpg">
   <link rel="preload" as="image" href="assets/bg-03.jpg">
   <link rel="preload" as="image" href="assets/bg-04.jpg">
   <link rel="preload" as="image" href="assets/bg-05.jpg">
   <link rel="preload" as="image" href="assets/bg-06.jpg">
 </head>
 
-<body class="bg-sky" data-bg="1">
-  
+<body data-bg="1">
+
   <!-- Fixed background layers (fade between them as you scroll) -->
   <div class="bg-layer bg-01" aria-hidden="true"></div>
   <div class="bg-layer bg-02" aria-hidden="true"></div>
@@ -27,18 +28,15 @@
   <div class="bg-layer bg-05" aria-hidden="true"></div>
   <div class="bg-layer bg-06" aria-hidden="true"></div>
   <div class="bg-vignette" aria-hidden="true"></div>
-<a class="skip-link" href="#main">Skip to content</a>
+
+  <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header" data-header>
     <div class="container header-inner">
       <a class="brand" href="#home" aria-label="Pranee Properties home">
-        <img
-          class="brand-wordmark"
-          src="assets/PraneeProperties_name_logo.png"
-          alt="Pranee Properties"
-        />
+        <img class="brand-wordmark" src="assets/PraneeProperties_name_logo.png" alt="Pranee Properties" />
+        <img class="brand-mark" src="assets/pmark.svg" alt="" aria-hidden="true" />
       </a>
-
 
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
         <span class="sr-only">Open menu</span>
@@ -55,21 +53,24 @@
   </header>
 
   <main id="main">
-<!-- HERO -->
-    <section id="home" class="hero" aria-label="Hero" data-bg-step="1">
+
+    <!-- HERO -->
+    <section id="home" class="hero" data-bg-step="1" aria-label="Hero">
       <div class="container hero-inner">
-        <div class="hero-copy reveal reveal-up">
-          <h1>Luxury Villa<br>Minutes<br>From the Bay</h1>
-          <div class="hero-price">$3,500,000</div>
-          <p class="lead">Short description goes here. Replace with your featured listing or your main message.</p>
-          <div class="hero-actions">
-            <a class="btn" href="#sales">Read more</a>
+        <div class="center-panel wide hero-box reveal reveal-up">
+          <div class="hero-copy">
+            <h1>Luxury Villa<br>Minutes<br>From the Bay</h1>
+            <div class="hero-price">$3,500,000</div>
+            <p class="lead">Short description goes here. Replace with your featured listing or your main message.</p>
+            <div class="hero-actions">
+              <a class="btn" href="#pp-01">Read more</a>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-<!-- LISTINGS (each listing triggers a new fixed background) -->
+    <!-- LISTINGS (each listing triggers a new fixed background) -->
     <section id="listings" class="section" data-bg-step="1" aria-label="Listings">
       <div class="container">
         <div class="center-panel soft reveal reveal-up">
@@ -108,8 +109,6 @@
                 <a class="btn" href="#contact">Enquire</a>
                 <a class="btn secondary" href="#contact">Request brochure</a>
               </div>
-
-              <p class="listing-note">Background image file: <b>assets/bg-02.jpg</b></p>
             </div>
 
             <aside class="detail-card">
@@ -153,8 +152,6 @@
                 <a class="btn" href="#contact">Enquire</a>
                 <a class="btn secondary" href="#contact">Request brochure</a>
               </div>
-
-              <p class="listing-note">Background image file: <b>assets/bg-03.jpg</b></p>
             </div>
 
             <aside class="detail-card">
@@ -198,8 +195,6 @@
                 <a class="btn" href="#contact">Enquire</a>
                 <a class="btn secondary" href="#contact">Request brochure</a>
               </div>
-
-              <p class="listing-note">Background image file: <b>assets/bg-04.jpg</b></p>
             </div>
 
             <aside class="detail-card">
@@ -243,8 +238,6 @@
                 <a class="btn" href="#contact">Enquire</a>
                 <a class="btn secondary" href="#contact">Request brochure</a>
               </div>
-
-              <p class="listing-note">Background image file: <b>assets/bg-05.jpg</b></p>
             </div>
 
             <aside class="detail-card">
@@ -287,8 +280,6 @@
                 <a class="btn" href="#contact">Enquire</a>
                 <a class="btn secondary" href="#contact">Request brochure</a>
               </div>
-
-              <p class="listing-note">Background image file: <b>assets/bg-06.jpg</b></p>
             </div>
 
             <aside class="detail-card">
@@ -306,10 +297,10 @@
       </div>
     </section>
 
-    <!-- TESTIMONIALS -->
-    <section id="testimonials" class="section testimonials" data-bg-step="6" aria-label="Testimonials">
+    <!-- TESTIMONIALS (return to clean white background) -->
+    <section id="testimonials" class="section" data-bg-step="1" aria-label="Testimonials">
       <div class="container">
-        <div class="center-panel dark">
+        <div class="center-panel wide reveal reveal-up">
           <h2>What Our Clients Think</h2>
 
           <div class="quote-grid">
@@ -330,10 +321,10 @@
       </div>
     </section>
 
-    <!-- CONTACT -->
-    <section id="contact" class="section" data-bg-step="6" aria-label="Contact">
+    <!-- CONTACT (clean white background) -->
+    <section id="contact" class="section" data-bg-step="1" aria-label="Contact">
       <div class="container">
-        <div class="contact-wrap center-panel reveal reveal-up">
+        <div class="contact-wrap center-panel wide reveal reveal-up">
           <h2>Contact</h2>
 
           <form class="form reveal reveal-up" onsubmit="return window.Pranee && window.Pranee.handleContactSubmit(event);">
@@ -361,8 +352,8 @@
         </div>
       </div>
     </section>
-</main>
 
+  </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
@@ -371,6 +362,6 @@
     </div>
   </footer>
 
-  <script src="script.js" defer></script>
+  <script src="script.js"></script>
 </body>
 </html>
