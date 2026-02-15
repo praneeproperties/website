@@ -594,7 +594,7 @@ body.lb-open{ overflow:hidden; }
   .thumbs::-webkit-scrollbar{ height:6px; }
   .thumbs::-webkit-scrollbar-thumb{
     background: rgba(0,0,0,.12);
-    border-radius: 999px;
+    border-radius: 0px;
   }
 
   /* lightbox: near full-screen */
