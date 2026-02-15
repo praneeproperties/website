@@ -601,7 +601,7 @@ body.lb-open{ overflow:hidden; }
   .lightbox-dialog{
     width: 94vw;
     height: 76vh;
-    border-radius: 18px;
+    border-radius: 0px;
   }
 
   /* safe areas (iPhone notch) */
