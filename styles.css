@@ -625,15 +625,35 @@ body.lb-open{
     height: 76vh;
     border-radius: 18px;
   }
+
   .lightbox-close{
-    top: 10px;
-    right: 10px;
+    top: calc(10px + env(safe-area-inset-top));
+    right: calc(10px + env(safe-area-inset-right));
   }
-  .lightbox-nav{
-    width: 50px;
-    height: 60px;
+
+  .lightbox-nav.prev{ left: calc(12px + env(safe-area-inset-left)); }
+  .lightbox-nav.next{ right: calc(12px + env(safe-area-inset-right)); }
+
+  .lightbox-caption{
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
   }
 }
+
+@media (max-width: 720px){
+  .thumbs{
+    scroll-padding-left: 22px;
+    gap: 12px;
+  }
+  .thumb{
+    flex: 0 0 auto; /* prevents shrinking */
+  }
+}
+
+
+@media (max-width: 720px){
+  .lightbox-nav{ display:none; }
+}
+
 
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce){
