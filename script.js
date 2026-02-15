@@ -137,3 +137,94 @@
     },
   };
 })();
+
+
+
+// ===== Lightbox Gallery (thumbnails) =====
+(() => {
+  const lb = document.querySelector("[data-lightbox]");
+  if (!lb) return;
+
+  const imgEl = lb.querySelector("[data-lb-img]");
+  const capEl = lb.querySelector("[data-lb-caption]");
+  const btnPrev = lb.querySelector("[data-lb-prev]");
+  const btnNext = lb.querySelector("[data-lb-next]");
+
+  let current = { urls: [], alts: [], index: 0 };
+
+  const open = (urls, alts, startIndex = 0) => {
+    current.urls = urls;
+    current.alts = alts;
+    current.index = startIndex;
+
+    lb.hidden = false;
+    lb.setAttribute("aria-hidden", "false");
+    document.body.classList.add("lb-open");
+
+    render();
+  };
+
+  const close = () => {
+    lb.hidden = true;
+    lb.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("lb-open");
+  };
+
+  const render = () => {
+    const url = current.urls[current.index];
+    const alt = current.alts[current.index] || "Listing photo";
+    imgEl.src = url;
+    imgEl.alt = alt;
+
+    const total = current.urls.length;
+    capEl.textContent = total > 1 ? `${current.index + 1} / ${total}` : "";
+
+    btnPrev.style.display = total > 1 ? "" : "none";
+    btnNext.style.display = total > 1 ? "" : "none";
+  };
+
+  const prev = () => {
+    current.index = (current.index - 1 + current.urls.length) % current.urls.length;
+    render();
+  };
+
+  const next = () => {
+    current.index = (current.index + 1) % current.urls.length;
+    render();
+  };
+
+  // Open on thumb click (supports multiple galleries on page)
+  document.addEventListener("click", (e) => {
+    const thumb = e.target.closest(".thumb");
+    if (!thumb) return;
+
+    const gallery = thumb.closest("[data-gallery]");
+    if (!gallery) return;
+
+    const thumbs = Array.from(gallery.querySelectorAll(".thumb"));
+    const urls = thumbs.map(t => t.getAttribute("data-full")).filter(Boolean);
+    const alts = thumbs.map(t => t.querySelector("img")?.alt || "Listing photo");
+
+    const startIndex = thumbs.indexOf(thumb);
+    if (urls.length) open(urls, alts, Math.max(0, startIndex));
+  });
+
+  // Close handlers
+  lb.addEventListener("click", (e) => {
+    if (e.target.matches("[data-lb-close]")) close();
+  });
+
+  // Nav
+  btnPrev.addEventListener("click", prev);
+  btnNext.addEventListener("click", next);
+
+  // Keyboard
+  document.addEventListener("keydown", (e) => {
+    if (lb.hidden) return;
+
+    if (e.key === "Escape") close();
+    if (e.key === "ArrowLeft") prev();
+    if (e.key === "ArrowRight") next();
+  });
+})();
+
