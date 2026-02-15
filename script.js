@@ -159,7 +159,6 @@
   };
 })();
 
-
 // ===== Lightbox Gallery (thumbnails) =====
 (() => {
   const lb = document.querySelector("[data-lightbox]");
@@ -178,7 +177,7 @@
     current.alts = alts;
     current.index = startIndex;
 
-    // if a close is mid-animation, cancel it
+    // cancel any pending close animation
     lb.classList.remove("is-closing");
     if (closeTimer) {
       clearTimeout(closeTimer);
@@ -193,15 +192,13 @@
   };
 
   const close = () => {
-    if (!lb || lb.hidden) return;
+    if (lb.hidden) return;
 
     lb.setAttribute("aria-hidden", "true");
     document.body.classList.remove("lb-open");
-
-    // trigger closing animation
     lb.classList.add("is-closing");
 
-    // prevent stacked timers if user clicks close repeatedly
+    // prevent stacking timeouts if user clicks close repeatedly
     if (closeTimer) clearTimeout(closeTimer);
     closeTimer = setTimeout(() => {
       lb.hidden = true;
@@ -251,12 +248,12 @@
     if (urls.length) open(urls, alts, Math.max(0, startIndex));
   });
 
-  // Close handlers
+  // Close handlers (backdrop + X)
   lb.addEventListener("click", (e) => {
     if (e.target.matches("[data-lb-close]")) close();
   });
 
-  // Nav
+  // Nav buttons
   btnPrev.addEventListener("click", prev);
   btnNext.addEventListener("click", next);
 
