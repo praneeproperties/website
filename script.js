@@ -36,6 +36,27 @@
     });
   }
 
+
+  let closeTimer = null;
+
+  const close = () => {
+    if (!lb || lb.hidden) return;
+  
+    lb.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("lb-open");
+    lb.classList.add("is-closing");
+  
+    if (closeTimer) clearTimeout(closeTimer);
+    closeTimer = setTimeout(() => {
+      lb.hidden = true;
+      lb.classList.remove("is-closing");
+      closeTimer = null;
+    }, 220);
+  };
+
+
+
+  
   // Multi background steps (fade between 1..6)
   const bgSteps = Array.from(document.querySelectorAll("[data-bg-step]"));
   const bodyEl = document.body;
@@ -139,7 +160,6 @@
 })();
 
 
-
 // ===== Lightbox Gallery (thumbnails) =====
 (() => {
   const lb = document.querySelector("[data-lightbox]");
@@ -151,35 +171,44 @@
   const btnNext = lb.querySelector("[data-lb-next]");
 
   let current = { urls: [], alts: [], index: 0 };
+  let closeTimer = null;
 
   const open = (urls, alts, startIndex = 0) => {
     current.urls = urls;
     current.alts = alts;
     current.index = startIndex;
-  
-    lb.classList.remove("is-closing");   // <— add this
+
+    // if a close is mid-animation, cancel it
+    lb.classList.remove("is-closing");
+    if (closeTimer) {
+      clearTimeout(closeTimer);
+      closeTimer = null;
+    }
+
     lb.hidden = false;
     lb.setAttribute("aria-hidden", "false");
     document.body.classList.add("lb-open");
-  
+
     render();
   };
 
-
   const close = () => {
+    if (!lb || lb.hidden) return;
+
     lb.setAttribute("aria-hidden", "true");
     document.body.classList.remove("lb-open");
-  
+
     // trigger closing animation
     lb.classList.add("is-closing");
-  
-    // hide after transition
-    setTimeout(() => {
+
+    // prevent stacked timers if user clicks close repeatedly
+    if (closeTimer) clearTimeout(closeTimer);
+    closeTimer = setTimeout(() => {
       lb.hidden = true;
       lb.classList.remove("is-closing");
+      closeTimer = null;
     }, 220);
   };
-
 
   const render = () => {
     const url = current.urls[current.index];
@@ -195,11 +224,13 @@
   };
 
   const prev = () => {
+    if (current.urls.length < 2) return;
     current.index = (current.index - 1 + current.urls.length) % current.urls.length;
     render();
   };
 
   const next = () => {
+    if (current.urls.length < 2) return;
     current.index = (current.index + 1) % current.urls.length;
     render();
   };
