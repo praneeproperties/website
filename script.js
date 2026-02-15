@@ -36,6 +36,22 @@
     });
   }
 
+  // Header/logo ready (fade-in logo once the image is available)
+  (() => {
+    const logo = document.querySelector(".brand-wordmark");
+    if (!header || !logo) return;
+
+    const ready = () => header.classList.add("is-ready");
+
+    if (logo.complete) ready();
+    else {
+      logo.addEventListener("load", ready, { once: true });
+      logo.addEventListener("error", ready, { once: true }); // fail-safe
+    }
+  })();
+
+
+  
   // Multi background steps (fade between 1..6)
   const bgSteps = Array.from(document.querySelectorAll("[data-bg-step]"));
   const bodyEl = document.body;
