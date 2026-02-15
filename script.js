@@ -1,4 +1,4 @@
-/* Pranee Properties — tiny vanilla JS for menu + footer year + reveal + bg fade */
+/* Pranee Properties — vanilla JS for menu + footer year + reveal + bg fade + lightbox */
 
 (function () {
   const header = document.querySelector("[data-header]");
@@ -36,27 +36,6 @@
     });
   }
 
-
-  let closeTimer = null;
-
-  const close = () => {
-    if (!lb || lb.hidden) return;
-  
-    lb.setAttribute("aria-hidden", "true");
-    document.body.classList.remove("lb-open");
-    lb.classList.add("is-closing");
-  
-    if (closeTimer) clearTimeout(closeTimer);
-    closeTimer = setTimeout(() => {
-      lb.hidden = true;
-      lb.classList.remove("is-closing");
-      closeTimer = null;
-    }, 220);
-  };
-
-
-
-  
   // Multi background steps (fade between 1..6)
   const bgSteps = Array.from(document.querySelectorAll("[data-bg-step]"));
   const bodyEl = document.body;
@@ -69,7 +48,6 @@
 
   if (bgSteps.length) {
     const pickClosest = () => {
-      // Lock top to step 1 (prevents jumping to listing 1 on tall screens)
       if (window.scrollY <= 10) {
         setBgStep(1);
         return;
@@ -96,9 +74,9 @@
   }
 
   // Active nav on scroll (simple)
-  const navLinks = Array.from(document.querySelectorAll('#site-nav a'));
+  const navLinks = Array.from(document.querySelectorAll("#site-nav a"));
   const sectionsForNav = navLinks
-    .map(a => document.querySelector(a.getAttribute('href')))
+    .map((a) => document.querySelector(a.getAttribute("href")))
     .filter(Boolean);
 
   const setActive = () => {
@@ -110,16 +88,21 @@
       const r = sec.getBoundingClientRect();
       if (r.bottom <= 0 || r.top >= window.innerHeight) continue;
       const d = Math.abs(r.top - mid);
-      if (d < bestDist) { bestDist = d; best = sec; }
+      if (d < bestDist) {
+        bestDist = d;
+        best = sec;
+      }
     }
 
     if (!best) return;
-    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + best.id));
+    navLinks.forEach((a) =>
+      a.classList.toggle("active", a.getAttribute("href") === "#" + best.id)
+    );
   };
 
   setActive();
-  window.addEventListener('scroll', setActive, { passive: true });
-  window.addEventListener('resize', setActive);
+  window.addEventListener("scroll", setActive, { passive: true });
+  window.addEventListener("resize", setActive);
 
   // Scroll reveal init
   const revealEls = Array.from(document.querySelectorAll(".reveal"));
@@ -131,14 +114,17 @@
     };
 
     if ("IntersectionObserver" in window) {
-      const io = new IntersectionObserver((entries, obs) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            show(entry.target);
-            obs.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.15, rootMargin: "0px 0px -10% 0px" });
+      const io = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              show(entry.target);
+              obs.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15, rootMargin: "0px 0px -10% 0px" }
+      );
 
       revealEls.forEach((el) => io.observe(el));
     } else {
@@ -168,9 +154,26 @@
   const capEl = lb.querySelector("[data-lb-caption]");
   const btnPrev = lb.querySelector("[data-lb-prev]");
   const btnNext = lb.querySelector("[data-lb-next]");
+  const btnClose = lb.querySelector(".lightbox-close");
 
   let current = { urls: [], alts: [], index: 0 };
   let closeTimer = null;
+  let lastFocus = null;
+
+  const render = () => {
+    const url = current.urls[current.index];
+    const alt = current.alts[current.index] || "Listing photo";
+
+    imgEl.src = url;
+    imgEl.alt = alt;
+
+    const total = current.urls.length;
+    capEl.textContent = total > 1 ? `${current.index + 1} / ${total}` : "";
+
+    const showNav = total > 1;
+    btnPrev.style.display = showNav ? "" : "none";
+    btnNext.style.display = showNav ? "" : "none";
+  };
 
   const open = (urls, alts, startIndex = 0) => {
     current.urls = urls;
@@ -184,11 +187,17 @@
       closeTimer = null;
     }
 
+    // remember focus (premium feel)
+    lastFocus = document.activeElement;
+
     lb.hidden = false;
     lb.setAttribute("aria-hidden", "false");
     document.body.classList.add("lb-open");
 
     render();
+
+    // focus close button for keyboard users
+    if (btnClose) btnClose.focus({ preventScroll: true });
   };
 
   const close = () => {
@@ -198,26 +207,18 @@
     document.body.classList.remove("lb-open");
     lb.classList.add("is-closing");
 
-    // prevent stacking timeouts if user clicks close repeatedly
     if (closeTimer) clearTimeout(closeTimer);
     closeTimer = setTimeout(() => {
       lb.hidden = true;
       lb.classList.remove("is-closing");
       closeTimer = null;
+
+      // restore focus
+      if (lastFocus && typeof lastFocus.focus === "function") {
+        lastFocus.focus({ preventScroll: true });
+      }
+      lastFocus = null;
     }, 220);
-  };
-
-  const render = () => {
-    const url = current.urls[current.index];
-    const alt = current.alts[current.index] || "Listing photo";
-    imgEl.src = url;
-    imgEl.alt = alt;
-
-    const total = current.urls.length;
-    capEl.textContent = total > 1 ? `${current.index + 1} / ${total}` : "";
-
-    btnPrev.style.display = total > 1 ? "" : "none";
-    btnNext.style.display = total > 1 ? "" : "none";
   };
 
   const prev = () => {
@@ -241,8 +242,8 @@
     if (!gallery) return;
 
     const thumbs = Array.from(gallery.querySelectorAll(".thumb"));
-    const urls = thumbs.map(t => t.getAttribute("data-full")).filter(Boolean);
-    const alts = thumbs.map(t => t.querySelector("img")?.alt || "Listing photo");
+    const urls = thumbs.map((t) => t.getAttribute("data-full")).filter(Boolean);
+    const alts = thumbs.map((t) => t.querySelector("img")?.alt || "Listing photo");
 
     const startIndex = thumbs.indexOf(thumb);
     if (urls.length) open(urls, alts, Math.max(0, startIndex));
@@ -265,5 +266,58 @@
     if (e.key === "ArrowLeft") prev();
     if (e.key === "ArrowRight") next();
   });
-})();
 
+  // ===== Mobile swipe (left/right) =====
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let touchActive = false;
+
+  const SWIPE_DIST = 40; // px
+  const SWIPE_OFFAXIS = 60; // px allowed vertical drift
+
+  lb.addEventListener(
+    "touchstart",
+    (e) => {
+      if (lb.hidden) return;
+      const t = e.touches[0];
+      touchStartX = t.clientX;
+      touchStartY = t.clientY;
+      touchActive = true;
+    },
+    { passive: true }
+  );
+
+  lb.addEventListener(
+    "touchmove",
+    (e) => {
+      if (!touchActive || lb.hidden) return;
+      const t = e.touches[0];
+      const dx = t.clientX - touchStartX;
+      const dy = t.clientY - touchStartY;
+
+      // clearly horizontal swipe → prevent page scroll
+      if (Math.abs(dx) > 12 && Math.abs(dy) < 18) {
+        e.preventDefault();
+      }
+    },
+    { passive: false }
+  );
+
+  lb.addEventListener(
+    "touchend",
+    (e) => {
+      if (!touchActive || lb.hidden) return;
+      touchActive = false;
+
+      const t = e.changedTouches[0];
+      const dx = t.clientX - touchStartX;
+      const dy = t.clientY - touchStartY;
+
+      if (Math.abs(dy) > SWIPE_OFFAXIS) return;
+
+      if (dx <= -SWIPE_DIST) next();
+      if (dx >= SWIPE_DIST) prev();
+    },
+    { passive: true }
+  );
+})();
