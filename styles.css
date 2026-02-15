@@ -436,12 +436,13 @@ html.js .reveal.is-visible{ opacity:1; transform:none; }
   height:var(--thumb);
   padding:0;
   border:1px solid rgba(0,0,0,.12);
-  border-radius:14px;
+  border-radius:0;
   overflow:hidden;
   background:#fff;
   cursor:pointer;
   box-shadow: 0 6px 16px rgba(0,0,0,.06);
 }
+
 
 .thumb img{
   width:100%;
