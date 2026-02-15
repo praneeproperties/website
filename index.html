@@ -555,6 +555,25 @@
     </div>
   </footer>
 
+  <!-- Lightbox -->
+  <div class="lightbox" data-lightbox hidden aria-hidden="true">
+    <div class="lightbox-backdrop" data-lb-close></div>
+  
+    <div class="lightbox-dialog" role="dialog" aria-modal="true" aria-label="Image preview">
+      <button class="lightbox-close" type="button" data-lb-close aria-label="Close">✕</button>
+  
+      <button class="lightbox-nav prev" type="button" data-lb-prev aria-label="Previous image">‹</button>
+  
+      <img class="lightbox-img" data-lb-img alt="" />
+  
+      <button class="lightbox-nav next" type="button" data-lb-next aria-label="Next image">›</button>
+  
+      <div class="lightbox-caption" data-lb-caption aria-live="polite"></div>
+    </div>
+  </div>
+
+
+  
   <script src="script.js"></script>
 </body>
 </html>
