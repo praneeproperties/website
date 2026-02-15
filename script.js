@@ -156,19 +156,30 @@
     current.urls = urls;
     current.alts = alts;
     current.index = startIndex;
-
+  
+    lb.classList.remove("is-closing");   // <— add this
     lb.hidden = false;
     lb.setAttribute("aria-hidden", "false");
     document.body.classList.add("lb-open");
-
+  
     render();
   };
 
+
   const close = () => {
-    lb.hidden = true;
     lb.setAttribute("aria-hidden", "true");
     document.body.classList.remove("lb-open");
+  
+    // trigger closing animation
+    lb.classList.add("is-closing");
+  
+    // hide after transition
+    setTimeout(() => {
+      lb.hidden = true;
+      lb.classList.remove("is-closing");
+    }, 220);
   };
+
 
   const render = () => {
     const url = current.urls[current.index];
