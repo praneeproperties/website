@@ -6,8 +6,13 @@
   <title>Pranee Properties</title>
   <meta name="description" content="Pranee Properties — clean, modern real estate in Thailand." />
   <meta name="theme-color" content="#ffffff" />
+
+  <link rel="preload" as="image" href="assets/PraneeProperties_name_logo.png" fetchpriority="high">
+
   <link rel="icon" href="https://praneeproperties.com/assets/logo.svg" type="image/svg+xml" />
+  
   <link rel="stylesheet" href="https://praneeproperties.com/styles.css" />
+  
   <script>document.documentElement.classList.add('js');</script>
 
   <!-- Social Preview -->
@@ -35,7 +40,7 @@
 
   
 
-
+  
 
   <!-- Preload fixed background images -->
   <link rel="preload" as="image" href="assets/bg-02.jpg">
@@ -61,7 +66,16 @@
   <header class="site-header" data-header>
     <div class="container header-inner">
       <a class="brand" href="#home" aria-label="Pranee Properties home">
-        <img class="brand-wordmark" src="assets/PraneeProperties_name_logo.png" alt="Pranee Properties" />
+        <img
+          class="brand-wordmark"
+          src="/assets/PraneeProperties_name_logo.png"
+          alt="Pranee Properties"
+          width="420"
+          height="64"
+          fetchpriority="high"
+          decoding="async"
+        />
+
       </a>
 
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
