@@ -327,6 +327,19 @@ p{margin:0 0 10px}
   border-bottom:1px solid rgba(0,0,0,.08);
   padding-bottom: 8px;
 }
+
+/* Fix Quick Details cutting off on mobile */
+.detail-list li > span{
+  flex: 1 1 auto;
+  min-width: 0;              /* <-- IMPORTANT: allows shrinking */
+  text-align: right;
+  overflow-wrap: anywhere;   /* ensures long text can break */
+}
+
+.detail-list li > b{
+  flex: 0 0 auto;
+}
+
 .detail-list b{
   color: var(--text);
   letter-spacing:.12em;
