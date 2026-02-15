@@ -135,18 +135,24 @@ body[data-bg="6"] .bg-06{ opacity:1; }
   flex-shrink: 1;
 }
 
+/* ✅ Fade-in the logo once header is ready */
+.brand-wordmark{
+  opacity: 0;
+  transform: translateY(-2px);
+  transition: opacity 260ms ease, transform 260ms ease;
+}
+.site-header.is-ready .brand-wordmark{
+  opacity: 1;
+  transform: none;
+}
+
 @media (max-width: 920px){
   .brand-wordmark{
     height: 46px;
     max-width: 360px;
   }
 }
-@media (max-width: 420px){
-  .brand-wordmark{
-    height: 42px;
-    max-width: 320px;
-  }
-}
+
 
 .site-nav{
   display:flex;
