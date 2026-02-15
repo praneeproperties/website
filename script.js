@@ -1,4 +1,4 @@
-/* Pranee Properties — vanilla JS for menu + footer year + reveal + bg fade + lightbox */
+/* Pranee Properties — tiny vanilla JS for menu + footer year + reveal + bg fade + lightbox */
 
 (function () {
   const header = document.querySelector("[data-header]");
@@ -160,6 +160,14 @@
   let closeTimer = null;
   let lastFocus = null;
 
+  // Swipe state
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let touchActive = false;
+
+  const SWIPE_DIST = 40; // px
+  const SWIPE_OFFAXIS = 60; // px allowed vertical drift
+
   const render = () => {
     const url = current.urls[current.index];
     const alt = current.alts[current.index] || "Listing photo";
@@ -170,55 +178,8 @@
     const total = current.urls.length;
     capEl.textContent = total > 1 ? `${current.index + 1} / ${total}` : "";
 
-    const showNav = total > 1;
-    btnPrev.style.display = showNav ? "" : "none";
-    btnNext.style.display = showNav ? "" : "none";
-  };
-
-  const open = (urls, alts, startIndex = 0) => {
-    current.urls = urls;
-    current.alts = alts;
-    current.index = startIndex;
-
-    // cancel any pending close animation
-    lb.classList.remove("is-closing");
-    if (closeTimer) {
-      clearTimeout(closeTimer);
-      closeTimer = null;
-    }
-
-    // remember focus (premium feel)
-    lastFocus = document.activeElement;
-
-    lb.hidden = false;
-    lb.setAttribute("aria-hidden", "false");
-    document.body.classList.add("lb-open");
-
-    render();
-
-    // focus close button for keyboard users
-    if (btnClose) btnClose.focus({ preventScroll: true });
-  };
-
-  const close = () => {
-    if (lb.hidden) return;
-
-    lb.setAttribute("aria-hidden", "true");
-    document.body.classList.remove("lb-open");
-    lb.classList.add("is-closing");
-
-    if (closeTimer) clearTimeout(closeTimer);
-    closeTimer = setTimeout(() => {
-      lb.hidden = true;
-      lb.classList.remove("is-closing");
-      closeTimer = null;
-
-      // restore focus
-      if (lastFocus && typeof lastFocus.focus === "function") {
-        lastFocus.focus({ preventScroll: true });
-      }
-      lastFocus = null;
-    }, 220);
+    btnPrev.style.display = total > 1 ? "" : "none";
+    btnNext.style.display = total > 1 ? "" : "none";
   };
 
   const prev = () => {
@@ -233,6 +194,54 @@
     render();
   };
 
+  const open = (urls, alts, startIndex = 0) => {
+    current.urls = urls;
+    current.alts = alts;
+    current.index = startIndex;
+
+    // cancel any pending close animation
+    lb.classList.remove("is-closing");
+    lb.classList.remove("is-open");
+    if (closeTimer) {
+      clearTimeout(closeTimer);
+      closeTimer = null;
+    }
+
+    lastFocus = document.activeElement;
+
+    lb.hidden = false;
+    lb.setAttribute("aria-hidden", "false");
+    document.body.classList.add("lb-open");
+
+    render();
+
+    // Trigger CSS transition reliably (hidden -> visible -> is-open next frame)
+    requestAnimationFrame(() => {
+      lb.classList.add("is-open");
+      if (btnClose) btnClose.focus();
+    });
+  };
+
+  const close = () => {
+    if (lb.hidden) return;
+
+    lb.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("lb-open");
+
+    lb.classList.remove("is-open");
+    lb.classList.add("is-closing");
+
+    if (closeTimer) clearTimeout(closeTimer);
+    closeTimer = setTimeout(() => {
+      lb.hidden = true;
+      lb.classList.remove("is-closing");
+      closeTimer = null;
+
+      if (lastFocus && typeof lastFocus.focus === "function") lastFocus.focus();
+      lastFocus = null;
+    }, 220);
+  };
+
   // Open on thumb click (supports multiple galleries on page)
   document.addEventListener("click", (e) => {
     const thumb = e.target.closest(".thumb");
@@ -244,8 +253,8 @@
     const thumbs = Array.from(gallery.querySelectorAll(".thumb"));
     const urls = thumbs.map((t) => t.getAttribute("data-full")).filter(Boolean);
     const alts = thumbs.map((t) => t.querySelector("img")?.alt || "Listing photo");
-
     const startIndex = thumbs.indexOf(thumb);
+
     if (urls.length) open(urls, alts, Math.max(0, startIndex));
   });
 
@@ -255,30 +264,30 @@
   });
 
   // Nav buttons
-  btnPrev.addEventListener("click", prev);
-  btnNext.addEventListener("click", next);
+  btnPrev.addEventListener("click", (e) => {
+    e.stopPropagation();
+    prev();
+  });
+  btnNext.addEventListener("click", (e) => {
+    e.stopPropagation();
+    next();
+  });
 
   // Keyboard
   document.addEventListener("keydown", (e) => {
     if (lb.hidden) return;
-
     if (e.key === "Escape") close();
     if (e.key === "ArrowLeft") prev();
     if (e.key === "ArrowRight") next();
   });
 
-  // ===== Mobile swipe (left/right) =====
-  let touchStartX = 0;
-  let touchStartY = 0;
-  let touchActive = false;
-
-  const SWIPE_DIST = 40; // px
-  const SWIPE_OFFAXIS = 60; // px allowed vertical drift
-
+  // Mobile swipe (left/right)
   lb.addEventListener(
     "touchstart",
     (e) => {
       if (lb.hidden) return;
+      if (e.touches.length !== 1) return;
+
       const t = e.touches[0];
       touchStartX = t.clientX;
       touchStartY = t.clientY;
@@ -291,11 +300,13 @@
     "touchmove",
     (e) => {
       if (!touchActive || lb.hidden) return;
+      if (e.touches.length !== 1) return;
+
       const t = e.touches[0];
       const dx = t.clientX - touchStartX;
       const dy = t.clientY - touchStartY;
 
-      // clearly horizontal swipe → prevent page scroll
+      // If clearly horizontal, stop scrolling
       if (Math.abs(dx) > 12 && Math.abs(dy) < 18) {
         e.preventDefault();
       }
