@@ -613,18 +613,25 @@ body.lb-open{ overflow:hidden; }
 @media (max-width: 720px){
   /* thumbs: horizontal strip */
   .thumbs{
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  
     flex-wrap:nowrap;
     overflow-x:auto;
     padding-bottom:6px;
     -webkit-overflow-scrolling: touch;
     scroll-snap-type: x mandatory;
-
+  
     scroll-padding-left: 22px;
     gap: 12px;
   }
+
+
   .thumb{
+    flex: 0 0 var(--thumb);   /* fixed width so they don’t expand weirdly */
     scroll-snap-align:start;
-    flex: 0 0 auto;
   }
 
   .thumbs::-webkit-scrollbar{ height:6px; }
