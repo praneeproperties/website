@@ -320,25 +320,27 @@ p{margin:0 0 10px}
   gap: 10px;
   color: var(--muted);
 }
-.detail-list li{
-  display:flex;
-  justify-content:space-between;
-  gap: 12px;
-  border-bottom:1px solid rgba(0,0,0,.08);
-  padding-bottom: 8px;
-}
 
-/* Fix Quick Details cutting off on mobile */
-.detail-list li > span{
-  flex: 1 1 auto;
-  min-width: 0;              /* <-- IMPORTANT: allows shrinking */
-  text-align: right;
-  overflow-wrap: anywhere;   /* ensures long text can break */
+.detail-list li{
+  display:grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  column-gap:12px;
+  align-items:baseline;
+  border-bottom:1px solid rgba(0,0,0,.08);
+  padding-bottom:8px;
 }
 
 .detail-list li > b{
-  flex: 0 0 auto;
+  min-width:0;
 }
+
+.detail-list li > span{
+  min-width:0;
+  text-align:right;
+  overflow-wrap:anywhere;
+  word-break:break-word; /* helps Safari */
+}
+
 
 .detail-list b{
   color: var(--text);
