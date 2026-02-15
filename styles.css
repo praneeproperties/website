@@ -93,11 +93,13 @@ body[data-bg="6"] .bg-06{ opacity:1; }
   background:rgba(255,255,255,.95);
   backdrop-filter: blur(10px);
   border-bottom:1px solid var(--line);
+} /* ✅ <-- ADD THIS CLOSING BRACE */
 
 .header-inner{
   display:flex; align-items:center; justify-content:space-between;
   min-height:92px; gap:16px;
 }
+
 
 /* ✅ ADD THIS RIGHT HERE */
 .header-inner{ min-width: 0; }
@@ -130,7 +132,7 @@ body[data-bg="6"] .bg-06{ opacity:1; }
   display:block;
   max-width: 420px;
   object-fit: contain;
-  flex-shrink: 0;
+  flex-shrink: 1;
 }
 
 @media (max-width: 920px){
