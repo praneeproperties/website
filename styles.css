@@ -574,5 +574,58 @@ body.lb-open{
   text-align:center;
 }
 
+/* ===== Lightbox animation ===== */
+.lightbox{
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+
+.lightbox:not([hidden]){
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Backdrop blur fade */
+.lightbox-backdrop{
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+
+.lightbox:not([hidden]) .lightbox-backdrop{
+  opacity: 1;
+}
+
+/* Dialog pop */
+.lightbox-dialog{
+  transform: translateY(10px) scale(0.985);
+  opacity: 0;
+  transition: transform 220ms ease, opacity 220ms ease;
+}
+
+.lightbox:not([hidden]) .lightbox-dialog{
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .lightbox,
+  .lightbox-backdrop,
+  .lightbox-dialog{
+    transition: none !important;
+  }
+}
+
+
+.lightbox.is-closing{
+  opacity: 0;
+  pointer-events: none;
+}
+.lightbox.is-closing .lightbox-backdrop{ opacity: 0; }
+.lightbox.is-closing .lightbox-dialog{
+  opacity: 0;
+  transform: translateY(10px) scale(0.985);
+}
 
 
