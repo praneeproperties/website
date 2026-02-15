@@ -445,3 +445,128 @@ html.js .reveal.is-visible{ opacity:1; transform:none; }
   .brand-wordmark{ height:38px; max-width:260px; }
   .brand-mark{ height:18px; }
 }
+
+
+
+/* ===== Thumbnails ===== */
+.thumbs{
+  --thumb: 76px; /* change this to resize thumbs */
+  display:flex;
+  gap:10px;
+  margin-top:14px;
+  flex-wrap:wrap;
+}
+
+.thumb{
+  width:var(--thumb);
+  height:var(--thumb);
+  padding:0;
+  border:1px solid rgba(0,0,0,.12);
+  border-radius:14px;
+  overflow:hidden;
+  background:#fff;
+  cursor:pointer;
+  box-shadow: 0 6px 16px rgba(0,0,0,.06);
+}
+
+.thumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transform: scale(1.02);
+}
+
+.thumb:focus-visible{
+  outline: 3px solid rgba(0,0,0,.35);
+  outline-offset: 2px;
+}
+
+/* ===== Lightbox ===== */
+body.lb-open{
+  overflow:hidden;
+}
+
+.lightbox{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:grid;
+  place-items:center;
+}
+
+.lightbox-backdrop{
+  position:absolute;
+  inset:0;
+  background: rgba(0,0,0,.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.lightbox-dialog{
+  position:relative;
+  width:min(1100px, 92vw);
+  height:min(78vh, 720px);
+  display:grid;
+  place-items:center;
+  border-radius:22px;
+  overflow:hidden;
+  background: rgba(255,255,255,.06);
+  box-shadow: 0 24px 70px rgba(0,0,0,.35);
+}
+
+.lightbox-img{
+  max-width:100%;
+  max-height:100%;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+  display:block;
+  user-select:none;
+}
+
+.lightbox-close{
+  position:absolute;
+  top:12px;
+  right:12px;
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.25);
+  background: rgba(0,0,0,.35);
+  color:#fff;
+  cursor:pointer;
+}
+
+.lightbox-nav{
+  position:absolute;
+  top:50%;
+  transform: translateY(-50%);
+  width:46px;
+  height:56px;
+  border-radius:18px;
+  border:1px solid rgba(255,255,255,.25);
+  background: rgba(0,0,0,.35);
+  color:#fff;
+  cursor:pointer;
+  font-size:28px;
+  line-height:1;
+}
+
+.lightbox-nav.prev{ left:12px; }
+.lightbox-nav.next{ right:12px; }
+
+.lightbox-caption{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  padding:10px 14px;
+  font-size:14px;
+  color:rgba(255,255,255,.9);
+  background: linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,0));
+  text-align:center;
+}
+
+
+
