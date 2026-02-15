@@ -93,30 +93,20 @@ body[data-bg="6"] .bg-06{ opacity:1; }
   background:rgba(255,255,255,.95);
   backdrop-filter: blur(10px);
   border-bottom:1px solid var(--line);
-} /* ✅ <-- ADD THIS CLOSING BRACE */
+
+  opacity: 0;
+  transition: opacity 260ms ease;
+}
+.site-header.is-ready{ opacity: 1; }
 
 .header-inner{
   display:flex; align-items:center; justify-content:space-between;
   min-height:92px; gap:16px;
 }
 
-
-/* ✅ ADD THIS RIGHT HERE */
+/* Prevent flex overflow */
 .header-inner{ min-width: 0; }
 .brand{ min-width: 0; flex: 1 1 auto; }
-.brand-wordmark{ max-width: 100%; flex-shrink: 1; }
-
-/* Hard cap for small phones so logo + toggle always fit */
-@media (max-width: 520px){
-  .brand-wordmark{
-    max-width: calc(100vw - 44px - 46px - 16px - env(safe-area-inset-left) - env(safe-area-inset-right));
-  }
-}
-
-
-@media (max-width: 920px){
-  .header-inner{ min-height:84px; }
-}
 
 /* ===== Header brand wordmark ===== */
 .brand{
@@ -133,10 +123,8 @@ body[data-bg="6"] .bg-06{ opacity:1; }
   max-width: 420px;
   object-fit: contain;
   flex-shrink: 1;
-}
 
-/* ✅ Fade-in the logo once header is ready */
-.brand-wordmark{
+  /* ✅ logo fade/slide */
   opacity: 0;
   transform: translateY(-2px);
   transition: opacity 260ms ease, transform 260ms ease;
@@ -146,7 +134,15 @@ body[data-bg="6"] .bg-06{ opacity:1; }
   transform: none;
 }
 
+/* Hard cap for small phones so logo + toggle always fit */
+@media (max-width: 520px){
+  .brand-wordmark{
+    max-width: calc(100vw - 44px - 46px - 16px - env(safe-area-inset-left) - env(safe-area-inset-right));
+  }
+}
+
 @media (max-width: 920px){
+  .header-inner{ min-height:84px; }
   .brand-wordmark{
     height: 46px;
     max-width: 360px;
