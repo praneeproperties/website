@@ -256,7 +256,20 @@ p{margin:0 0 10px}
   .hero-copy{ padding: 56px 0; }
 }
 
+
 /* ===== Listing spotlight layout ===== */
+
+.anchor{
+  display:block;
+  position:relative;
+  top:-110px;   /* offset for sticky header */
+  height:0;
+}
+
+@media (max-width: 920px){
+  .anchor{ top:-96px; }
+}
+
 .listing-scene{
   min-height: 78vh;
   display:flex;
