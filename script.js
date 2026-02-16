@@ -1,5 +1,8 @@
 /* Pranee Properties — tiny vanilla JS for menu + footer year + reveal + bg fade + lightbox */
 
+document.documentElement.classList.add("js");
+
+
 (function () {
   const header = document.querySelector("[data-header]");
   const navToggle = document.querySelector("[data-nav-toggle]");
