@@ -149,17 +149,61 @@
     }
   }
 
-  // Demo-only form handler
   window.Pranee = {
     handleContactSubmit: function (event) {
       event.preventDefault();
-      if (formNote) {
-        formNote.textContent =
-          "Thanks — this demo form doesn’t send yet. Hook it up to a form service when you're ready.";
-      }
+  
+      const form = event.target;
+  
+      // Pull values (matches your input names)
+      const name = form.elements["name"]?.value?.trim() || "";
+      const phone = form.elements["phone"]?.value?.trim() || "";
+      const email = form.elements["email"]?.value?.trim() || "";
+      const message = form.elements["message"]?.value?.trim() || "";
+  
+      // Google Form endpoint (must be /formResponse)
+      const FORM_ACTION =
+        "https://docs.google.com/forms/d/e/1FAIpQLSdRlD6k2iVor1DDAIee_JNKrTyuj5--W1FsFlk8-QYyY-1TUg/formResponse";
+  
+      // Field entry IDs (from your prefill link)
+      const ENTRY_NAME = "entry.422306849";
+      const ENTRY_PHONE = "entry.1702742260";
+      const ENTRY_EMAIL = "entry.1970676414";
+      const ENTRY_MESSAGE = "entry.1825557477";
+  
+      const note = document.querySelector("[data-form-note]");
+      const btn = form.querySelector('button[type="submit"]');
+  
+      if (btn) btn.disabled = true;
+      if (note) note.textContent = "Sending…";
+  
+      const data = new FormData();
+      data.append(ENTRY_NAME, name);
+      data.append(ENTRY_PHONE, phone);
+      data.append(ENTRY_EMAIL, email);
+      data.append(ENTRY_MESSAGE, message);
+  
+      fetch(FORM_ACTION, {
+        method: "POST",
+        mode: "no-cors",
+        body: data,
+      })
+        .then(() => {
+          if (note) note.textContent = "Thanks — message sent.";
+          form.reset();
+        })
+        .catch(() => {
+          // no-cors usually won’t throw, but just in case
+          if (note) note.textContent = "Couldn’t send. Please try again.";
+        })
+        .finally(() => {
+          if (btn) btn.disabled = false;
+        });
+  
       return false;
     },
   };
+
 })();
 
 // ===== Lightbox Gallery (thumbnails) =====
