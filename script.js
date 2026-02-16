@@ -55,39 +55,40 @@
   // Multi background steps (fade between 1..6)
   const bgSteps = Array.from(document.querySelectorAll("[data-bg-step]"));
   const bodyEl = document.body;
-
+  
   const setBgStep = (step) => {
-    if (!bodyEl) return;
     const v = String(step || 1);
     if (bodyEl.getAttribute("data-bg") !== v) bodyEl.setAttribute("data-bg", v);
   };
-
+  
   if (bgSteps.length) {
-    const pickClosest = () => {
+    // ↓ Smaller number = BG stays longer before switching (try 0.20 or 0.15)
+    const ACTIVATE_AT = 0.22; // 22% down from top of viewport
+  
+    const pickBg = () => {
       if (window.scrollY <= 10) {
         setBgStep(1);
         return;
       }
-
-      const mid = window.innerHeight * 0.45;
-      let best = null;
-      let bestDist = Infinity;
-
+  
+      const line = window.innerHeight * ACTIVATE_AT;
+  
+      // pick the last bg-step whose top has passed the activation line
+      let active = bgSteps[0];
       for (const el of bgSteps) {
-        const rect = el.getBoundingClientRect();
-        const dist = Math.abs(rect.top - mid);
-        if (rect.bottom > 0 && rect.top < window.innerHeight && dist < bestDist) {
-          bestDist = dist;
-          best = el;
-        }
+        const top = el.getBoundingClientRect().top;
+        if (top <= line) active = el;
+        else break; // DOM order means we can stop early
       }
-      if (best) setBgStep(best.getAttribute("data-bg-step"));
+  
+      setBgStep(active.getAttribute("data-bg-step"));
     };
-
-    pickClosest();
-    window.addEventListener("scroll", pickClosest, { passive: true });
-    window.addEventListener("resize", pickClosest);
+  
+    pickBg();
+    window.addEventListener("scroll", pickBg, { passive: true });
+    window.addEventListener("resize", pickBg);
   }
+
 
   // Active nav on scroll (simple)
   const navLinks = Array.from(document.querySelectorAll("#site-nav a"));
