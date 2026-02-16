@@ -93,11 +93,17 @@ body[data-bg="6"] .bg-06{ opacity:1; }
   background:rgba(255,255,255,.95);
   backdrop-filter: blur(10px);
   border-bottom:1px solid var(--line);
+  opacity: 1; /* default visible (no-js safe) */
+}
 
+/* Only fade-in when JS is active */
+html.js .site-header{
   opacity: 0;
   transition: opacity 260ms ease;
 }
-.site-header.is-ready{ opacity: 1; }
+html.js .site-header.is-ready{
+  opacity: 1;
+}
 
 .header-inner{
   display:flex; align-items:center; justify-content:space-between;
@@ -123,16 +129,20 @@ body[data-bg="6"] .bg-06{ opacity:1; }
   max-width: 420px;
   object-fit: contain;
   flex-shrink: 1;
+  opacity: 1; /* default visible (no-js safe) */
+}
 
-  /* ✅ logo fade/slide */
+/* Only fade/slide when JS is active */
+html.js .brand-wordmark{
   opacity: 0;
   transform: translateY(-2px);
   transition: opacity 260ms ease, transform 260ms ease;
 }
-.site-header.is-ready .brand-wordmark{
+html.js .site-header.is-ready .brand-wordmark{
   opacity: 1;
   transform: none;
 }
+
 
 /* Hard cap for small phones so logo + toggle always fit */
 @media (max-width: 520px){
@@ -679,9 +689,19 @@ body.lb-open{ overflow:hidden; }
 
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce){
+  /* lightbox */
   .lightbox,
   .lightbox-backdrop,
   .lightbox-dialog{
     transition: none !important;
   }
+
+  /* header/logo fade */
+  html.js .site-header,
+  html.js .brand-wordmark{
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
 }
+
