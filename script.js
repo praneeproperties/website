@@ -78,6 +78,7 @@
       for (const el of bgSteps) {
         const top = el.getBoundingClientRect().top;
         if (top <= line) active = el;
+      }
         else break; // DOM order means we can stop early
       }
   
