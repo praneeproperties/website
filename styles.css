@@ -539,7 +539,7 @@ body.lb-open{ overflow:hidden; }
   height:min(78vh, 720px);
   display:grid;
   place-items:center;
-  border-radius:22px;
+  border-radius:0px;
   overflow:hidden;
   background: rgba(255,255,255,.06);
   box-shadow: 0 24px 70px rgba(0,0,0,.35);
@@ -565,7 +565,7 @@ body.lb-open{ overflow:hidden; }
   right:12px;
   width:44px;
   height:44px;
-  border-radius:14px;
+  border-radius:0px;
   border:1px solid rgba(255,255,255,.25);
   background: rgba(0,0,0,.35);
   color:#fff;
