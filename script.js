@@ -73,20 +73,20 @@ document.documentElement.classList.add("js");
         setBgStep(1);
         return;
       }
-  
+    
       const line = window.innerHeight * ACTIVATE_AT;
-  
+    
       // pick the last bg-step whose top has passed the activation line
       let active = bgSteps[0];
       for (const el of bgSteps) {
         const top = el.getBoundingClientRect().top;
         if (top <= line) active = el;
-      }
         else break; // DOM order means we can stop early
       }
-  
+    
       setBgStep(active.getAttribute("data-bg-step"));
     };
+
   
     pickBg();
     window.addEventListener("scroll", pickBg, { passive: true });
@@ -328,15 +328,20 @@ document.documentElement.classList.add("js");
     if (e.target.matches("[data-lb-close]")) close();
   });
 
-  // Nav buttons
-  btnPrev.addEventListener("click", (e) => {
-    e.stopPropagation();
-    prev();
-  });
-  btnNext.addEventListener("click", (e) => {
-    e.stopPropagation();
-    next();
-  });
+  // Nav buttons (safe)
+  if (btnPrev) {
+    btnPrev.addEventListener("click", (e) => {
+      e.stopPropagation();
+      prev();
+    });
+  }
+  
+  if (btnNext) {
+    btnNext.addEventListener("click", (e) => {
+      e.stopPropagation();
+      next();
+    });
+  }
 
   // Keyboard
   document.addEventListener("keydown", (e) => {
