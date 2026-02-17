@@ -221,6 +221,44 @@ document.documentElement.classList.add("js");
   const btnNext = lb.querySelector("[data-lb-next]");
   const btnClose = lb.querySelector(".lightbox-close");
 
+    // Mobile tap zones (left/right edges) — keep swipe enabled
+    const dialog = lb.querySelector(".lightbox-dialog");
+    let tapPrev = lb.querySelector("[data-lb-tap-prev]");
+    let tapNext = lb.querySelector("[data-lb-tap-next]");
+  
+    if (dialog && !tapPrev && !tapNext) {
+      tapPrev = document.createElement("button");
+      tapPrev.type = "button";
+      tapPrev.className = "lb-tap-zone prev";
+      tapPrev.setAttribute("aria-label", "Previous image");
+      tapPrev.setAttribute("data-lb-tap-prev", "");
+  
+      tapNext = document.createElement("button");
+      tapNext.type = "button";
+      tapNext.className = "lb-tap-zone next";
+      tapNext.setAttribute("aria-label", "Next image");
+      tapNext.setAttribute("data-lb-tap-next", "");
+  
+      // Add them inside the dialog so they don't affect backdrop-close
+      dialog.appendChild(tapPrev);
+      dialog.appendChild(tapNext);
+    }
+  
+    if (tapPrev) {
+      tapPrev.addEventListener("click", (e) => {
+        e.stopPropagation();
+        prev();
+      });
+    }
+  
+    if (tapNext) {
+      tapNext.addEventListener("click", (e) => {
+        e.stopPropagation();
+        next();
+      });
+    }
+
+
   let current = { urls: [], alts: [], index: 0 };
   let closeTimer = null;
   let lastFocus = null;
