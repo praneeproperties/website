@@ -40,7 +40,7 @@ a{color:inherit}
 
 .bg-01{ background:#ffffff; }
 .bg-02{ background:#ffffff url("assets/listing_01_full_bg_01.jpg?v=1") center/cover no-repeat; }
-.bg-03{ background:#f3f3f3 url("assets/bg-03.jpg?v=1") center/cover no-repeat; }
+.bg-03{ background:#ffffff url("assets/listing_02_full_bg_01.jpg?v=1") center/cover no-repeat; }
 .bg-04{ background:#ffffff url("assets/bg-04.jpg?v=1") center/cover no-repeat; }
 .bg-05{ background:#f3f3f3 url("assets/bg-05.jpg?v=1") center/cover no-repeat; }
 .bg-06{ background:#ffffff url("assets/bg-06.jpg?v=1") center/cover no-repeat; }
