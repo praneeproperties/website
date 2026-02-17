@@ -350,24 +350,22 @@ document.documentElement.classList.add("js");
   document.addEventListener("click", (e) => {
     const thumb = e.target.closest(".thumb");
     if (!thumb) return;
-
+  
+    // ✅ Stop link navigation / “open image page”
+    e.preventDefault();
+    e.stopPropagation();
+  
     const gallery = thumb.closest("[data-gallery]");
     if (!gallery) return;
-
-    // If you ever switch thumbs to <a>, prevent navigation when JS is active
-    if (thumb.tagName === "A") e.preventDefault();
-
+  
     const thumbs = Array.from(gallery.querySelectorAll(".thumb"));
-
-    const urls = thumbs
-      .map((t) => t.getAttribute("data-full") || t.getAttribute("href"))
-      .filter(Boolean);
-
+    const urls = thumbs.map((t) => t.getAttribute("data-full")).filter(Boolean);
     const alts = thumbs.map((t) => t.querySelector("img")?.alt || "Listing photo");
     const startIndex = thumbs.indexOf(thumb);
-
+  
     if (urls.length) open(urls, alts, Math.max(0, startIndex));
   });
+
 
   // Close handlers (backdrop + X)
   lb.addEventListener("click", (e) => {
