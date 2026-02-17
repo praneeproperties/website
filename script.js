@@ -215,49 +215,14 @@ document.documentElement.classList.add("js");
   const lb = document.querySelector("[data-lightbox]");
   if (!lb) return;
 
+  const dialog = lb.querySelector(".lightbox-dialog");
   const imgEl = lb.querySelector("[data-lb-img]");
   const capEl = lb.querySelector("[data-lb-caption]");
   const btnPrev = lb.querySelector("[data-lb-prev]");
   const btnNext = lb.querySelector("[data-lb-next]");
   const btnClose = lb.querySelector(".lightbox-close");
 
-    // Mobile tap zones (left/right edges) — keep swipe enabled
-    const dialog = lb.querySelector(".lightbox-dialog");
-    let tapPrev = lb.querySelector("[data-lb-tap-prev]");
-    let tapNext = lb.querySelector("[data-lb-tap-next]");
-  
-    if (dialog && !tapPrev && !tapNext) {
-      tapPrev = document.createElement("button");
-      tapPrev.type = "button";
-      tapPrev.className = "lb-tap-zone prev";
-      tapPrev.setAttribute("aria-label", "Previous image");
-      tapPrev.setAttribute("data-lb-tap-prev", "");
-  
-      tapNext = document.createElement("button");
-      tapNext.type = "button";
-      tapNext.className = "lb-tap-zone next";
-      tapNext.setAttribute("aria-label", "Next image");
-      tapNext.setAttribute("data-lb-tap-next", "");
-  
-      // Add them inside the dialog so they don't affect backdrop-close
-      dialog.appendChild(tapPrev);
-      dialog.appendChild(tapNext);
-    }
-  
-    if (tapPrev) {
-      tapPrev.addEventListener("click", (e) => {
-        e.stopPropagation();
-        prev();
-      });
-    }
-  
-    if (tapNext) {
-      tapNext.addEventListener("click", (e) => {
-        e.stopPropagation();
-        next();
-      });
-    }
-
+  if (!dialog || !imgEl || !capEl) return;
 
   let current = { urls: [], alts: [], index: 0 };
   let closeTimer = null;
@@ -268,8 +233,8 @@ document.documentElement.classList.add("js");
   let touchStartY = 0;
   let touchActive = false;
 
-  const SWIPE_DIST = 40; // px
-  const SWIPE_OFFAXIS = 60; // px allowed vertical drift
+  const SWIPE_DIST = 40;     // px
+  const SWIPE_OFFAXIS = 60;  // px allowed vertical drift
 
   const render = () => {
     const url = current.urls[current.index];
@@ -281,8 +246,8 @@ document.documentElement.classList.add("js");
     const total = current.urls.length;
     capEl.textContent = total > 1 ? `${current.index + 1} / ${total}` : "";
 
-    btnPrev.style.display = total > 1 ? "" : "none";
-    btnNext.style.display = total > 1 ? "" : "none";
+    if (btnPrev) btnPrev.style.display = total > 1 ? "" : "none";
+    if (btnNext) btnNext.style.display = total > 1 ? "" : "none";
   };
 
   const prev = () => {
@@ -295,6 +260,42 @@ document.documentElement.classList.add("js");
     if (current.urls.length < 2) return;
     current.index = (current.index + 1) % current.urls.length;
     render();
+  };
+
+  // Mobile tap zones (left/right edges) — keep swipe enabled
+  const ensureTapZones = () => {
+    let tapPrev = lb.querySelector("[data-lb-tap-prev]");
+    let tapNext = lb.querySelector("[data-lb-tap-next]");
+
+    if (!tapPrev) {
+      tapPrev = document.createElement("button");
+      tapPrev.type = "button";
+      tapPrev.className = "lb-tap-zone prev";
+      tapPrev.setAttribute("aria-label", "Previous image");
+      tapPrev.setAttribute("data-lb-tap-prev", "");
+      dialog.appendChild(tapPrev);
+
+      tapPrev.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        prev();
+      });
+    }
+
+    if (!tapNext) {
+      tapNext = document.createElement("button");
+      tapNext.type = "button";
+      tapNext.className = "lb-tap-zone next";
+      tapNext.setAttribute("aria-label", "Next image");
+      tapNext.setAttribute("data-lb-tap-next", "");
+      dialog.appendChild(tapNext);
+
+      tapNext.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        next();
+      });
+    }
   };
 
   const open = (urls, alts, startIndex = 0) => {
@@ -316,9 +317,9 @@ document.documentElement.classList.add("js");
     lb.setAttribute("aria-hidden", "false");
     document.body.classList.add("lb-open");
 
+    ensureTapZones();
     render();
 
-    // Trigger CSS transition reliably (hidden -> visible -> is-open next frame)
     requestAnimationFrame(() => {
       lb.classList.add("is-open");
       if (btnClose) btnClose.focus();
@@ -353,8 +354,15 @@ document.documentElement.classList.add("js");
     const gallery = thumb.closest("[data-gallery]");
     if (!gallery) return;
 
+    // If you ever switch thumbs to <a>, prevent navigation when JS is active
+    if (thumb.tagName === "A") e.preventDefault();
+
     const thumbs = Array.from(gallery.querySelectorAll(".thumb"));
-    const urls = thumbs.map((t) => t.getAttribute("data-full")).filter(Boolean);
+
+    const urls = thumbs
+      .map((t) => t.getAttribute("data-full") || t.getAttribute("href"))
+      .filter(Boolean);
+
     const alts = thumbs.map((t) => t.querySelector("img")?.alt || "Listing photo");
     const startIndex = thumbs.indexOf(thumb);
 
@@ -366,16 +374,18 @@ document.documentElement.classList.add("js");
     if (e.target.matches("[data-lb-close]")) close();
   });
 
-  // Nav buttons (safe)
+  // Nav buttons (desktop)
   if (btnPrev) {
     btnPrev.addEventListener("click", (e) => {
+      e.preventDefault();
       e.stopPropagation();
       prev();
     });
   }
-  
+
   if (btnNext) {
     btnNext.addEventListener("click", (e) => {
+      e.preventDefault();
       e.stopPropagation();
       next();
     });
@@ -440,3 +450,4 @@ document.documentElement.classList.add("js");
     { passive: true }
   );
 })();
+
