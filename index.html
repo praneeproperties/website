@@ -52,8 +52,18 @@
   <link rel="preload" as="image" href="assets/listing_01_full_02.jpg">
 </head>
 
+
+  
 <body data-bg="1">
 
+
+  <noscript>
+    <div style="padding:12px 16px;border-bottom:1px solid #e7e7e7;font-family:system-ui;">
+      This site works best with JavaScript enabled. If you can’t use it, you can still view listings and contact us using the links below.
+    </div>
+  </noscript>
+
+  
   <!-- Fixed background layers (fade between them as you scroll) -->
   <div class="bg-layer bg-01" aria-hidden="true"></div>
   <div class="bg-layer bg-02" aria-hidden="true"></div>
@@ -141,10 +151,10 @@
 
 
               <div class="thumbs" data-gallery aria-label="Listing photos">
-                <button class="thumb" type="button"
-                  data-full="assets/listing_01_full_01.jpg"
-                  aria-label="Open photo 1">
+                <a class="thumb" href="assets/listing_01_full_01.jpg" data-full="assets/listing_01_full_01.jpg">
                   <img src="assets/listing_01_thumb_01.jpg" alt="Listing photo 1">
+                </a>
+
                 </button>
               
                 <button class="thumb" type="button"
