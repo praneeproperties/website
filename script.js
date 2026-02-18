@@ -52,42 +52,63 @@ document.documentElement.classList.add("js");
     }
   })();
 
-  // Multi background steps (fade between 0..N)
-  const bgSteps = Array.from(document.querySelectorAll("[data-bg-step]"));
-  const bodyEl = document.body;
-
-  const setBgStep = (step) => {
-    const v = String(step ?? 0); // allow 0
-    if (bodyEl.getAttribute("data-bg") !== v) bodyEl.setAttribute("data-bg", v);
-  };
-
-  if (bgSteps.length) {
-    const ACTIVATE_AT = 0.22; // 22% down from top of viewport
-
-    const pickBg = () => {
-      if (window.scrollY <= 10) {
-        setBgStep(0);
-        return;
-      }
-
-      const line = window.innerHeight * ACTIVATE_AT;
-
-      // pick the last bg-step whose top has passed the activation line
-      let active = bgSteps[0];
-      for (const el of bgSteps) {
-        const top = el.getBoundingClientRect().top;
-        if (top <= line) active = el;
-        else break; // DOM order means we can stop early
-      }
-
-      // attribute returns a string (e.g. "0","1","2"...)
-      setBgStep(active.getAttribute("data-bg-step"));
+    // Multi background steps (fade between 0..)
+    const bgSteps = Array.from(document.querySelectorAll("[data-bg-step]"));
+    const bodyEl = document.body;
+  
+    // We want to force white once we get near Testimonials/Contact
+    const whiteStartEl =
+      document.querySelector("#testimonials") || document.querySelector("#contact");
+  
+    const setBgStep = (step) => {
+      const v = String(step ?? 0); // allow 0
+      if (bodyEl.getAttribute("data-bg") !== v) bodyEl.setAttribute("data-bg", v);
     };
+  
+    if (bgSteps.length) {
+      // Desktop needs a slightly higher activation line so it switches sooner
+      const getActivateAt = () =>
+        window.matchMedia("(min-width: 921px)").matches ? 0.35 : 0.22;
+  
+      // How early (px) we switch to white BEFORE testimonials hits the activation line
+      const WHITE_EARLY_PX = 140; // tweak 80–220 if you want
+  
+      const pickBg = () => {
+        if (window.scrollY <= 10) {
+          setBgStep(0);
+          return;
+        }
+  
+        const ACTIVATE_AT = getActivateAt();
+        const line = window.innerHeight * ACTIVATE_AT;
+        const lineY = window.scrollY + line;
+  
+        // ✅ Force white near the bottom sections (fixes “Listing 04 overrides” on desktop)
+        if (whiteStartEl) {
+          const whiteY =
+            whiteStartEl.getBoundingClientRect().top + window.scrollY - WHITE_EARLY_PX;
+          if (lineY >= whiteY) {
+            setBgStep(0);
+            return;
+          }
+        }
+  
+        // Normal behavior for listings/hero
+        let active = bgSteps[0];
+        for (const el of bgSteps) {
+          const top = el.getBoundingClientRect().top;
+          if (top <= line) active = el;
+          else break;
+        }
+  
+        setBgStep(active.getAttribute("data-bg-step"));
+      };
+  
+      pickBg();
+      window.addEventListener("scroll", pickBg, { passive: true });
+      window.addEventListener("resize", pickBg);
+    }
 
-    pickBg();
-    window.addEventListener("scroll", pickBg, { passive: true });
-    window.addEventListener("resize", pickBg);
-  }
 
   // Active nav on scroll (simple)
   const navLinks = Array.from(document.querySelectorAll("#site-nav a"));
