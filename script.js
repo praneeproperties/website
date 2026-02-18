@@ -2,7 +2,6 @@
 
 document.documentElement.classList.add("js");
 
-
 (function () {
   const header = document.querySelector("[data-header]");
   const navToggle = document.querySelector("[data-nav-toggle]");
@@ -53,31 +52,26 @@ document.documentElement.classList.add("js");
     }
   })();
 
-
-  
-  // Multi background steps (fade between 1..6)
+  // Multi background steps (fade between 0..N)
   const bgSteps = Array.from(document.querySelectorAll("[data-bg-step]"));
   const bodyEl = document.body;
-  
+
   const setBgStep = (step) => {
     const v = String(step ?? 0); // allow 0
     if (bodyEl.getAttribute("data-bg") !== v) bodyEl.setAttribute("data-bg", v);
   };
 
-  
   if (bgSteps.length) {
-    // ↓ Smaller number = BG stays longer before switching (try 0.20 or 0.15)
     const ACTIVATE_AT = 0.22; // 22% down from top of viewport
-  
+
     const pickBg = () => {
       if (window.scrollY <= 10) {
         setBgStep(0);
         return;
       }
 
-    
       const line = window.innerHeight * ACTIVATE_AT;
-    
+
       // pick the last bg-step whose top has passed the activation line
       let active = bgSteps[0];
       for (const el of bgSteps) {
@@ -85,16 +79,15 @@ document.documentElement.classList.add("js");
         if (top <= line) active = el;
         else break; // DOM order means we can stop early
       }
-    
+
+      // attribute returns a string (e.g. "0","1","2"...)
       setBgStep(active.getAttribute("data-bg-step"));
     };
 
-  
     pickBg();
     window.addEventListener("scroll", pickBg, { passive: true });
     window.addEventListener("resize", pickBg);
   }
-
 
   // Active nav on scroll (simple)
   const navLinks = Array.from(document.querySelectorAll("#site-nav a"));
@@ -158,37 +151,37 @@ document.documentElement.classList.add("js");
   window.Pranee = {
     handleContactSubmit: function (event) {
       event.preventDefault();
-  
+
       const form = event.target;
-  
+
       // Pull values (matches your input names)
       const name = form.elements["name"]?.value?.trim() || "";
       const phone = form.elements["phone"]?.value?.trim() || "";
       const email = form.elements["email"]?.value?.trim() || "";
       const message = form.elements["message"]?.value?.trim() || "";
-  
+
       // Google Form endpoint (must be /formResponse)
       const FORM_ACTION =
         "https://docs.google.com/forms/d/e/1FAIpQLSdRlD6k2iVor1DDAIee_JNKrTyuj5--W1FsFlk8-QYyY-1TUg/formResponse";
-  
+
       // Field entry IDs (from your prefill link)
       const ENTRY_NAME = "entry.422306849";
       const ENTRY_PHONE = "entry.1702742260";
       const ENTRY_EMAIL = "entry.1970676414";
       const ENTRY_MESSAGE = "entry.1825557477";
-  
+
       const note = document.querySelector("[data-form-note]");
       const btn = form.querySelector('button[type="submit"]');
-  
+
       if (btn) btn.disabled = true;
       if (note) note.textContent = "Sending…";
-  
+
       const data = new FormData();
       data.append(ENTRY_NAME, name);
       data.append(ENTRY_PHONE, phone);
       data.append(ENTRY_EMAIL, email);
       data.append(ENTRY_MESSAGE, message);
-  
+
       fetch(FORM_ACTION, {
         method: "POST",
         mode: "no-cors",
@@ -205,11 +198,10 @@ document.documentElement.classList.add("js");
         .finally(() => {
           if (btn) btn.disabled = false;
         });
-  
+
       return false;
     },
   };
-
 })();
 
 // ===== Lightbox Gallery (thumbnails) =====
@@ -235,8 +227,11 @@ document.documentElement.classList.add("js");
   let touchStartY = 0;
   let touchActive = false;
 
-  const SWIPE_DIST = 40;     // px
-  const SWIPE_OFFAXIS = 60;  // px allowed vertical drift
+  // Prevent “swipe + synthetic click” double-advance on iOS
+  let lastSwipeAt = 0;
+
+  const SWIPE_DIST = 40; // px
+  const SWIPE_OFFAXIS = 60; // px allowed vertical drift
 
   const render = () => {
     const url = current.urls[current.index];
@@ -278,6 +273,7 @@ document.documentElement.classList.add("js");
       dialog.appendChild(tapPrev);
 
       tapPrev.addEventListener("click", (e) => {
+        if (Date.now() - lastSwipeAt < 350) return;
         e.preventDefault();
         e.stopPropagation();
         prev();
@@ -293,6 +289,7 @@ document.documentElement.classList.add("js");
       dialog.appendChild(tapNext);
 
       tapNext.addEventListener("click", (e) => {
+        if (Date.now() - lastSwipeAt < 350) return;
         e.preventDefault();
         e.stopPropagation();
         next();
@@ -349,25 +346,29 @@ document.documentElement.classList.add("js");
   };
 
   // Open on thumb click (supports multiple galleries on page)
-  document.addEventListener("click", (e) => {
-    const thumb = e.target.closest(".thumb");
-    if (!thumb) return;
-  
-    // ✅ Stop link navigation / “open image page”
-    e.preventDefault();
-    e.stopPropagation();
-  
-    const gallery = thumb.closest("[data-gallery]");
-    if (!gallery) return;
-  
-    const thumbs = Array.from(gallery.querySelectorAll(".thumb"));
-    const urls = thumbs.map((t) => t.getAttribute("data-full")).filter(Boolean);
-    const alts = thumbs.map((t) => t.querySelector("img")?.alt || "Listing photo");
-    const startIndex = thumbs.indexOf(thumb);
-  
-    if (urls.length) open(urls, alts, Math.max(0, startIndex));
-  });
+  // ✅ capture:true makes sure we beat default <a href> navigation on iOS
+  document.addEventListener(
+    "click",
+    (e) => {
+      const thumb = e.target.closest(".thumb");
+      if (!thumb) return;
 
+      // Stop link navigation / “open image page”
+      e.preventDefault();
+      e.stopPropagation();
+
+      const gallery = thumb.closest("[data-gallery]");
+      if (!gallery) return;
+
+      const thumbs = Array.from(gallery.querySelectorAll(".thumb"));
+      const urls = thumbs.map((t) => t.getAttribute("data-full")).filter(Boolean);
+      const alts = thumbs.map((t) => t.querySelector("img")?.alt || "Listing photo");
+      const startIndex = thumbs.indexOf(thumb);
+
+      if (urls.length) open(urls, alts, Math.max(0, startIndex));
+    },
+    { capture: true }
+  );
 
   // Close handlers (backdrop + X)
   lb.addEventListener("click", (e) => {
@@ -444,10 +445,15 @@ document.documentElement.classList.add("js");
 
       if (Math.abs(dy) > SWIPE_OFFAXIS) return;
 
-      if (dx <= -SWIPE_DIST) next();
-      if (dx >= SWIPE_DIST) prev();
+      if (dx <= -SWIPE_DIST) {
+        lastSwipeAt = Date.now();
+        next();
+      }
+      if (dx >= SWIPE_DIST) {
+        lastSwipeAt = Date.now();
+        prev();
+      }
     },
     { passive: true }
   );
 })();
-
