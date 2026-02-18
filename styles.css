@@ -38,19 +38,20 @@ a{color:inherit}
   transition: opacity 900ms ease;
 }
 
-.bg-01{ background:#ffffff; }
-.bg-02{ background:#ffffff url("assets/listing_01_full_bg_01.jpg?v=1") center/cover no-repeat; }
-.bg-03{ background:#ffffff url("assets/listing_02_full_bg_01.jpg?v=1") center/cover no-repeat; }
-.bg-04{ background:#ffffff url("assets/listing_03_full_bg_01.jpg?v=1") center/cover no-repeat; }
-.bg-05{ background:#ffffff url("assets/listing_04_full_bg_01.jpg?v=1") center/cover no-repeat; }
-.bg-06{ background:#ffffff url("assets/bg-00.jpg?v=1") center/cover no-repeat; }
+.bg-00{ background:#ffffff; }
+.bg-01{ background:#ffffff url("assets/listing_01_full_bg_01.jpg?v=2") center/cover no-repeat; }
+.bg-02{ background:#ffffff url("assets/listing_02_full_bg_01.jpg?v=2") center/cover no-repeat; }
+.bg-03{ background:#ffffff url("assets/listing_03_full_bg_01.jpg?v=2") center/cover no-repeat; }
+.bg-04{ background:#ffffff url("assets/listing_04_full_bg_01.jpg?v=2") center/cover no-repeat; }
+.bg-05{ background:#ffffff url("assets/bg-00.jpg?v=2") center/cover no-repeat; }
 
+body[data-bg="0"] .bg-00,
 body[data-bg="1"] .bg-01,
 body[data-bg="2"] .bg-02,
 body[data-bg="3"] .bg-03,
 body[data-bg="4"] .bg-04,
-body[data-bg="5"] .bg-05,
-body[data-bg="6"] .bg-06{ opacity:1; }
+body[data-bg="5"] .bg-05{ opacity:1; }
+
 
 .bg-vignette{
   position:fixed;
