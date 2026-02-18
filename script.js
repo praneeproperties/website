@@ -60,9 +60,10 @@ document.documentElement.classList.add("js");
   const bodyEl = document.body;
   
   const setBgStep = (step) => {
-    const v = String(step || 1);
+    const v = String(step ?? 0); // allow 0
     if (bodyEl.getAttribute("data-bg") !== v) bodyEl.setAttribute("data-bg", v);
   };
+
   
   if (bgSteps.length) {
     // ↓ Smaller number = BG stays longer before switching (try 0.20 or 0.15)
@@ -70,9 +71,10 @@ document.documentElement.classList.add("js");
   
     const pickBg = () => {
       if (window.scrollY <= 10) {
-        setBgStep(1);
+        setBgStep(0);
         return;
       }
+
     
       const line = window.innerHeight * ACTIVATE_AT;
     
