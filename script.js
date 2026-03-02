@@ -78,32 +78,20 @@ document.documentElement.classList.add("js");
     // ✅ Continuous, one-direction parallax across ALL listings
     const updateParallax = () => {
       if (prefersReduced) return;
-      if (activeStep === 0) return; // skip white
-    
-      // Define one global parallax region: from Listing 01 to Testimonials/Contact
-      const startEl = document.querySelector('[data-bg-step="1"]') || bgSteps[0];
-      const endEl = whiteStartEl || bgSteps[bgSteps.length - 1];
-      if (!startEl || !endEl) return;
-    
-      const startY = startEl.getBoundingClientRect().top + window.scrollY;
-      const endY = endEl.getBoundingClientRect().top + window.scrollY;
-      const span = Math.max(1, endY - startY);
-    
-      // Use a stable scanline
-      const lineY = window.scrollY + window.innerHeight * 0.55;
-    
-      // Global progress 0..1 (never resets per section)
-      const g = clamp((lineY - startY) / span, 0, 1);
     
       const isMobile = window.matchMedia("(max-width: 720px)").matches;
-      const rangeY = isMobile ? 14 : 9; // % drift downwards (tweak to taste)
-      const rangeX = isMobile ? 2.5 : 1.2; // tiny sideways drift, also one-direction
     
-      // ✅ Always drift RIGHT visually (so background-position goes LEFT)
-      const x = 50 - g * rangeX;
-      const y = 50 + g * rangeY;
-      
+      // Tune these: smaller = slower movement
+      const speedX = isMobile ? 0.0022 : 0.0014; // % per px scrolled
+      const speedY = isMobile ? 0.0012 : 0.0008;
+    
+      // ✅ "move image content right" => background-position X decreases as you scroll down
+      const x = 50 - window.scrollY * speedX;
+      const y = 50 + window.scrollY * speedY;
+    
       const pos = `${x.toFixed(2)}% ${y.toFixed(2)}%`;
+    
+      // ✅ Apply to ALL layers so the cross-fade doesn’t “jump/zoom”
       document.querySelectorAll(".bg-layer").forEach((layer) => {
         layer.style.backgroundPosition = pos;
       });
