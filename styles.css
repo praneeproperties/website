@@ -741,7 +741,6 @@ body.lb-open{ overflow:hidden; }
   }
 }
 
-
 /* ===== Mobile: show more background between listings ===== */
 @media (max-width: 720px){
 
@@ -754,6 +753,11 @@ body.lb-open{ overflow:hidden; }
   section[id^="pp-"]{
     padding-top: 120px;
     padding-bottom: 140px;
+  }
+
+  /* ✅ Extra breathing room BEFORE the first listing only */
+  #pp-01{
+    padding-top: 170px;  /* try 150–220px */
   }
 
   /* ensure the listing scene doesn't squeeze the BG */
@@ -776,4 +780,3 @@ body.lb-open{ overflow:hidden; }
     margin-top: 18px;
   }
 }
-
