@@ -60,43 +60,83 @@ document.documentElement.classList.add("js");
     const whiteStartEl =
       document.querySelector("#testimonials") || document.querySelector("#contact");
     
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    
+    const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
+    const stepToClass = (step) => `.bg-${String(step).padStart(2, "0")}`;
+    
+    // Track active section + step for parallax
+    let activeStep = 0;
+    let activeSection = null;
+    let rafId = 0;
+    
     const setBgStep = (step) => {
       const v = String(step ?? 0);
       if (bodyEl.getAttribute("data-bg") !== v) bodyEl.setAttribute("data-bg", v);
+      activeStep = Number(step ?? 0);
+    };
+    
+    const updateParallax = () => {
+      if (prefersReduced) return;
+    
+      // Only drift on listing backgrounds (skip white bg=0)
+      if (!activeSection || activeStep === 0) return;
+    
+      const layer = document.querySelector(stepToClass(activeStep));
+      if (!layer) return;
+    
+      // Progress through the active section (0..1)
+      const r = activeSection.getBoundingClientRect();
+      const total = r.height + window.innerHeight;
+      const p = clamp((window.innerHeight * 0.55 - r.top) / total, 0, 1);
+    
+      // Bigger drift on mobile so it’s noticeable
+      const isMobile = window.matchMedia("(max-width: 720px)").matches;
+      const rangeY = isMobile ? 16 : 10; // percent movement up/down
+      const rangeX = isMobile ? 6 : 3;   // tiny sideways drift
+    
+      const y = 50 + (p - 0.5) * rangeY;
+      const x = 50 + Math.sin(window.scrollY / 1200) * rangeX;
+    
+      layer.style.backgroundPosition = `${x.toFixed(2)}% ${y.toFixed(2)}%`;
+    };
+    
+    const requestParallax = () => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = 0;
+        updateParallax();
+      });
     };
     
     if (bgSteps.length) {
-      const mqMobile = window.matchMedia("(max-width: 720px)");
+      const getActivateAt = () =>
+        window.matchMedia("(min-width: 921px)").matches ? 0.35 : 0.22;
     
-      // ✅ Mobile holds longer (bigger number = switch later)
-      const getActivateAt = () => (mqMobile.matches ? 0.72 : 0.30);
-      let ACTIVATE_AT = getActivateAt();
-    
-      // How early (px) we switch to white BEFORE testimonials hits activation line
-      const WHITE_EARLY_PX = 180; // tweak 120–260 if you want
+      const WHITE_EARLY_PX = 140;
     
       const pickBg = () => {
-        // top of page = white
         if (window.scrollY <= 10) {
           setBgStep(0);
+          activeSection = document.querySelector('[data-bg-step="0"]') || null;
           return;
         }
     
+        const ACTIVATE_AT = getActivateAt();
         const line = window.innerHeight * ACTIVATE_AT;
         const lineY = window.scrollY + line;
     
-        // ✅ Force white near bottom sections
+        // Force white near Testimonials/Contact
         if (whiteStartEl) {
-          const whiteY =
-            whiteStartEl.getBoundingClientRect().top + window.scrollY - WHITE_EARLY_PX;
-    
+          const whiteY = whiteStartEl.getBoundingClientRect().top + window.scrollY - WHITE_EARLY_PX;
           if (lineY >= whiteY) {
             setBgStep(0);
+            activeSection = whiteStartEl;
             return;
           }
         }
     
-        // Normal behavior (pick last bg-step whose top passed activation line)
+        // Pick last bg-step passed
         let active = bgSteps[0];
         for (const el of bgSteps) {
           const top = el.getBoundingClientRect().top;
@@ -105,19 +145,21 @@ document.documentElement.classList.add("js");
         }
     
         setBgStep(active.getAttribute("data-bg-step"));
+        activeSection = active;
+    
+        requestParallax();
       };
     
-      // update when crossing breakpoint / phone rotate etc.
-      if (mqMobile.addEventListener) {
-        mqMobile.addEventListener("change", () => {
-          ACTIVATE_AT = getActivateAt();
-          pickBg();
-        });
-      }
-    
       pickBg();
-      window.addEventListener("scroll", pickBg, { passive: true });
-      window.addEventListener("resize", pickBg);
+      window.addEventListener("scroll", () => {
+        pickBg();
+        requestParallax();
+      }, { passive: true });
+    
+      window.addEventListener("resize", () => {
+        pickBg();
+        requestParallax();
+      });
     }
 
 
