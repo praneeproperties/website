@@ -36,6 +36,10 @@ a{color:inherit}
   pointer-events:none;
   opacity:0;
   transition: opacity 900ms ease;
+
+  /* ✅ add these */
+  background-position: 50% 50%;
+  will-change: opacity, background-position;
 }
 
 .bg-00{ background:#ffffff; }
