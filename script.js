@@ -55,55 +55,66 @@ document.documentElement.classList.add("js");
     // Multi background steps (fade between 0..)
     const bgSteps = Array.from(document.querySelectorAll("[data-bg-step]"));
     const bodyEl = document.body;
-  
-    // We want to force white once we get near Testimonials/Contact
+    
+    // Force white once we get near Testimonials/Contact
     const whiteStartEl =
       document.querySelector("#testimonials") || document.querySelector("#contact");
-  
+    
     const setBgStep = (step) => {
-      const v = String(step ?? 0); // allow 0
+      const v = String(step ?? 0);
       if (bodyEl.getAttribute("data-bg") !== v) bodyEl.setAttribute("data-bg", v);
     };
-  
+    
     if (bgSteps.length) {
-      // Desktop needs a slightly higher activation line so it switches sooner
-      const getActivateAt = () =>
-        window.matchMedia("(min-width: 921px)").matches ? 0.35 : 0.22;
-  
-      // How early (px) we switch to white BEFORE testimonials hits the activation line
-      const WHITE_EARLY_PX = 140; // tweak 80–220 if you want
-  
+      const mqMobile = window.matchMedia("(max-width: 720px)");
+    
+      // ✅ Mobile holds longer (bigger number = switch later)
+      const getActivateAt = () => (mqMobile.matches ? 0.72 : 0.30);
+      let ACTIVATE_AT = getActivateAt();
+    
+      // How early (px) we switch to white BEFORE testimonials hits activation line
+      const WHITE_EARLY_PX = 180; // tweak 120–260 if you want
+    
       const pickBg = () => {
+        // top of page = white
         if (window.scrollY <= 10) {
           setBgStep(0);
           return;
         }
-  
-        const ACTIVATE_AT = getActivateAt();
+    
         const line = window.innerHeight * ACTIVATE_AT;
         const lineY = window.scrollY + line;
-  
-        // ✅ Force white near the bottom sections (fixes “Listing 04 overrides” on desktop)
+    
+        // ✅ Force white near bottom sections
         if (whiteStartEl) {
           const whiteY =
             whiteStartEl.getBoundingClientRect().top + window.scrollY - WHITE_EARLY_PX;
+    
           if (lineY >= whiteY) {
             setBgStep(0);
             return;
           }
         }
-  
-        // Normal behavior for listings/hero
+    
+        // Normal behavior (pick last bg-step whose top passed activation line)
         let active = bgSteps[0];
         for (const el of bgSteps) {
           const top = el.getBoundingClientRect().top;
           if (top <= line) active = el;
           else break;
         }
-  
+    
         setBgStep(active.getAttribute("data-bg-step"));
       };
-  
+    
+      // update when crossing breakpoint / phone rotate etc.
+      if (mqMobile.addEventListener) {
+        mqMobile.addEventListener("change", () => {
+          ACTIVATE_AT = getActivateAt();
+          pickBg();
+        });
+      }
+    
       pickBg();
       window.addEventListener("scroll", pickBg, { passive: true });
       window.addEventListener("resize", pickBg);
