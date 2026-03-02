@@ -99,13 +99,11 @@ document.documentElement.classList.add("js");
       const rangeY = isMobile ? 14 : 9; // % drift downwards (tweak to taste)
       const rangeX = isMobile ? 2.5 : 1.2; // tiny sideways drift, also one-direction
     
-      // ✅ Always same direction as scroll down
-      const x = 50 + g * rangeX;
+      // ✅ Always drift RIGHT visually (so background-position goes LEFT)
+      const x = 50 - g * rangeX;
       const y = 50 + g * rangeY;
-    
+      
       const pos = `${x.toFixed(2)}% ${y.toFixed(2)}%`;
-    
-      // Apply to all layers so cross-fade stays aligned (no “zoom” feel)
       document.querySelectorAll(".bg-layer").forEach((layer) => {
         layer.style.backgroundPosition = pos;
       });
