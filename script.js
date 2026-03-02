@@ -81,17 +81,16 @@ document.documentElement.classList.add("js");
     
       const isMobile = window.matchMedia("(max-width: 720px)").matches;
     
-      // Tune these: smaller = slower movement
-      const speedX = isMobile ? 0.0022 : 0.0014; // % per px scrolled
-      const speedY = isMobile ? 0.0012 : 0.0008;
+      // ✅ speed (bigger = faster). BOOST 1.05 = “5% more”
+      const BOOST = 1.05;
+      const speedY = (isMobile ? 0.0024 : 0.0016) * BOOST;
     
-      // ✅ "move image content right" => background-position X decreases as you scroll down
-      const x = 50 - window.scrollY * speedX;
-      const y = 50 + window.scrollY * speedY;
+      // ✅ top → bottom drift (Y increases as you scroll)
+      // clamp keeps it from hitting edges too hard
+      const y = clamp(45 + window.scrollY * speedY, 35, 70);
     
-      const pos = `${x.toFixed(2)}% ${y.toFixed(2)}%`;
+      const pos = `50% ${y.toFixed(2)}%`;
     
-      // ✅ Apply to ALL layers so the cross-fade doesn’t “jump/zoom”
       document.querySelectorAll(".bg-layer").forEach((layer) => {
         layer.style.backgroundPosition = pos;
       });
