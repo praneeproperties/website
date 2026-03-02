@@ -762,7 +762,7 @@ body.lb-open{ overflow:hidden; }
 
   /* ✅ Extra breathing room BEFORE the first listing only */
   #pp-01{
-    padding-top: 200px;  /* try 150–220px */
+    padding-top: 120px;  /* try 150–220px */
   }
 
   /* ensure the listing scene doesn't squeeze the BG */
