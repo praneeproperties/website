@@ -741,3 +741,39 @@ body.lb-open{ overflow:hidden; }
   }
 }
 
+
+/* ===== Mobile: show more background between listings ===== */
+@media (max-width: 720px){
+
+  /* more space between sections so BG stays visible longer */
+  .section{
+    padding: 96px 0;  /* was 64px */
+  }
+
+  /* listings: add extra top/bottom breathing room */
+  section[id^="pp-"]{
+    padding-top: 120px;
+    padding-bottom: 140px;
+  }
+
+  /* ensure the listing scene doesn't squeeze the BG */
+  .listing-scene{
+    min-height: 92vh;
+    align-items: center;
+  }
+
+  /* panel spacing feel */
+  .center-panel{
+    padding: 34px 22px; /* slightly tighter than desktop, still premium */
+  }
+
+  .listing-panel{
+    gap: 18px;
+  }
+
+  /* thumbnails: a touch more spacing from content */
+  .thumbs{
+    margin-top: 18px;
+  }
+}
+
