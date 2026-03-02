@@ -63,11 +63,10 @@ document.documentElement.classList.add("js");
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     
     const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
-    const stepToClass = (step) => `.bg-${String(step).padStart(2, "0")}`;
     
-    // Track active section + step for parallax
+    // Track active step for parallax
     let activeStep = 0;
-    let activeSection = null;
+    let activeSection = null; // (kept because you use it below)
     let rafId = 0;
     
     const setBgStep = (step) => {
@@ -76,28 +75,37 @@ document.documentElement.classList.add("js");
       activeStep = Number(step ?? 0);
     };
     
+    // ✅ Continuous, one-direction parallax across ALL listings
     const updateParallax = () => {
       if (prefersReduced) return;
+      if (activeStep === 0) return; // skip white
     
-      // Only drift on listing backgrounds (skip white bg=0)
-      if (!activeSection || activeStep === 0) return;
+      // Define one global parallax region: from Listing 01 to Testimonials/Contact
+      const startEl = document.querySelector('[data-bg-step="1"]') || bgSteps[0];
+      const endEl = whiteStartEl || bgSteps[bgSteps.length - 1];
+      if (!startEl || !endEl) return;
     
-      // Progress through the active section (0..1)
-      const r = activeSection.getBoundingClientRect();
-      const total = r.height + window.innerHeight;
-      const p = clamp((window.innerHeight * 0.55 - r.top) / total, 0, 1);
+      const startY = startEl.getBoundingClientRect().top + window.scrollY;
+      const endY = endEl.getBoundingClientRect().top + window.scrollY;
+      const span = Math.max(1, endY - startY);
     
-      // Bigger drift on mobile so it’s noticeable
+      // Use a stable scanline
+      const lineY = window.scrollY + window.innerHeight * 0.55;
+    
+      // Global progress 0..1 (never resets per section)
+      const g = clamp((lineY - startY) / span, 0, 1);
+    
       const isMobile = window.matchMedia("(max-width: 720px)").matches;
-      const rangeY = isMobile ? 16 : 10; // percent movement up/down
-      const rangeX = isMobile ? 6 : 3;   // tiny sideways drift
+      const rangeY = isMobile ? 14 : 9; // % drift downwards (tweak to taste)
+      const rangeX = isMobile ? 2.5 : 1.2; // tiny sideways drift, also one-direction
     
-      const y = 50 + (p - 0.5) * rangeY;
-      const x = 50 + Math.sin(window.scrollY / 1200) * rangeX;
+      // ✅ Always same direction as scroll down
+      const x = 50 + g * rangeX;
+      const y = 50 + g * rangeY;
     
       const pos = `${x.toFixed(2)}% ${y.toFixed(2)}%`;
     
-      // ✅ Apply to ALL layers so cross-fade doesn't feel like a zoom
+      // Apply to all layers so cross-fade stays aligned (no “zoom” feel)
       document.querySelectorAll(".bg-layer").forEach((layer) => {
         layer.style.backgroundPosition = pos;
       });
@@ -168,7 +176,6 @@ document.documentElement.classList.add("js");
         requestParallax();
       });
     }
-
 
   // Active nav on scroll (simple)
   const navLinks = Array.from(document.querySelectorAll("#site-nav a"));
