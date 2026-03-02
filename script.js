@@ -82,9 +82,6 @@ document.documentElement.classList.add("js");
       // Only drift on listing backgrounds (skip white bg=0)
       if (!activeSection || activeStep === 0) return;
     
-      const layer = document.querySelector(stepToClass(activeStep));
-      if (!layer) return;
-    
       // Progress through the active section (0..1)
       const r = activeSection.getBoundingClientRect();
       const total = r.height + window.innerHeight;
@@ -98,7 +95,12 @@ document.documentElement.classList.add("js");
       const y = 50 + (p - 0.5) * rangeY;
       const x = 50 + Math.sin(window.scrollY / 1200) * rangeX;
     
-      layer.style.backgroundPosition = `${x.toFixed(2)}% ${y.toFixed(2)}%`;
+      const pos = `${x.toFixed(2)}% ${y.toFixed(2)}%`;
+    
+      // ✅ Apply to ALL layers so cross-fade doesn't feel like a zoom
+      document.querySelectorAll(".bg-layer").forEach((layer) => {
+        layer.style.backgroundPosition = pos;
+      });
     };
     
     const requestParallax = () => {
@@ -128,7 +130,8 @@ document.documentElement.classList.add("js");
     
         // Force white near Testimonials/Contact
         if (whiteStartEl) {
-          const whiteY = whiteStartEl.getBoundingClientRect().top + window.scrollY - WHITE_EARLY_PX;
+          const whiteY =
+            whiteStartEl.getBoundingClientRect().top + window.scrollY - WHITE_EARLY_PX;
           if (lineY >= whiteY) {
             setBgStep(0);
             activeSection = whiteStartEl;
@@ -151,10 +154,14 @@ document.documentElement.classList.add("js");
       };
     
       pickBg();
-      window.addEventListener("scroll", () => {
-        pickBg();
-        requestParallax();
-      }, { passive: true });
+      window.addEventListener(
+        "scroll",
+        () => {
+          pickBg();
+          requestParallax();
+        },
+        { passive: true }
+      );
     
       window.addEventListener("resize", () => {
         pickBg();
