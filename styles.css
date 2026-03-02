@@ -785,3 +785,14 @@ body.lb-open{ overflow:hidden; }
     margin-top: 18px;
   }
 }
+
+
+.bg-layer, .bg-vignette{
+  inset:auto;
+  top:0; left:0;
+  width:100vw;
+  height:100vh;
+}
+@supports (height: 100lvh){
+  .bg-layer, .bg-vignette{ height:100lvh; }
+}
