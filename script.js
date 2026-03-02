@@ -135,15 +135,28 @@ document.documentElement.classList.add("js");
     
         // Pick last bg-step passed
         let active = bgSteps[0];
+        const isDesktop = window.matchMedia("(min-width: 921px)").matches;
+        
+        // ✅ Mobile-only: delay background change until you're deeper into the section
+        const MOBILE_DELAY_PX = 220; // try 160–320 (bigger = bg switches later)
+        
         for (const el of bgSteps) {
-          const top = el.getBoundingClientRect().top;
-          if (top <= line) active = el;
+          const rect = el.getBoundingClientRect();
+          const step = Number(el.getAttribute("data-bg-step") || 0);
+        
+          // On desktop: behave exactly like before
+          // On mobile: require scrolling "into" the listing before it becomes active
+          const triggerTop = (!isDesktop && step !== 0)
+            ? (rect.top + MOBILE_DELAY_PX)
+            : rect.top;
+        
+          if (triggerTop <= line) active = el;
           else break;
         }
-    
+        
         setBgStep(active.getAttribute("data-bg-step"));
         activeSection = active;
-    
+        
         requestParallax();
       };
     
