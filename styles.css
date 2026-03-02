@@ -514,7 +514,7 @@ html.js .reveal.is-visible{ opacity:1; transform:none; }
   height:100%;
   object-fit:cover;
   display:block;
-  transform: scale(1.02);
+  transform: none;
 }
 
 .thumb:focus-visible{
@@ -549,19 +549,19 @@ body.lb-open{ overflow:hidden; }
 }
 
 .lightbox-dialog{
-  position:relative;
-  width:min(1100px, 92vw);
-  height:min(78vh, 720px);
-  display:grid;
-  place-items:center;
-  border-radius:0px;
-  overflow:hidden;
-  background: rgba(255,255,255,.06);
-  box-shadow: 0 24px 70px rgba(0,0,0,.35);
-
-  transform: translateY(10px) scale(0.985);
+  transform: translateY(10px);
   opacity:0;
   transition: transform 220ms ease, opacity 220ms ease;
+}
+
+.lightbox.is-open .lightbox-dialog{
+  transform: translateY(0);
+  opacity:1;
+}
+
+.lightbox.is-closing .lightbox-dialog{
+  opacity:0;
+  transform: translateY(10px);
 }
 
 .lightbox-img{
