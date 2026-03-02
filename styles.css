@@ -28,7 +28,7 @@ img{max-width:100%; height:auto; display:block}
 a{color:inherit}
 .container{max-width:var(--max); margin:0 auto; padding:0 22px}
 
-/* ===== Fixed backgrounds ===== */
+/* ===== Fixed backgrounds (FADE ONLY) ===== */
 .bg-layer{
   position:fixed;
   inset:0;
@@ -37,9 +37,10 @@ a{color:inherit}
   opacity:0;
   transition: opacity 900ms ease;
 
-  /* ✅ add these */
-  background-position: 50% 50%;
-  will-change: opacity, background-position;
+  /* ✅ fade-only */
+  will-change: opacity;
+  background-position: center;
+  transform: none;
 }
 
 .bg-00{ background:#ffffff; }
